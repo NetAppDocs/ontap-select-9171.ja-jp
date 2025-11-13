@@ -1,0 +1,226 @@
+---
+sidebar: sidebar 
+permalink: task_install_deploy.html 
+keywords: install, installing, ontap select deploy, deploy administration utility, deploy utility 
+summary: ONTAP Select Deploy 管理ユーティリティをインストールし、そのユーティリティを使用してONTAP Selectクラスタを作成する必要があります。 
+---
+= ONTAP Select Deploy をインストールする
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Select Deploy 管理ユーティリティをインストールし、そのユーティリティを使用してONTAP Selectクラスタを作成する必要があります。
+
+
+
+== 仮想マシンイメージをダウンロードする
+
+ONTAP Selectパッケージは、 NetAppサポート サイトからダウンロードできます。
+
+.開始する前に
+https://mysupport.netapp.com/site/user/registration["NetAppサポートサイトのアカウントが登録されています"^]。
+
+.タスク概要
+ONTAP Select Deploy管理ユーティリティは、Open Virtualization Format（OVF）標準に基づいた仮想マシン（VM）としてパッケージ化されています。単一の圧縮ファイルには、サフィックス `ova`。VMは、ONTAP Selectノード用のDeployサーバとインストールイメージを提供します。
+
+.手順
+. アクセスlink:https://mysupport.netapp.com/site/["NetAppサポート サイト"^]Web ブラウザを使用してサインインします。
+. メニューから*ダウンロード*を選択し、ドロップダウンメニューから*ダウンロード*を選択します。
+. ダウンロード ページの [すべての製品 AZ] の下で、文字 *O* を選択します。
+. 下にスクロールして* ONTAP Select*を選択します。
+. パッケージの希望するリリースを選択します。
+. エンド ユーザー ライセンス契約 (EULA) を確認し、[同意して続行] を選択します。
+. 必要に応じてすべてのプロンプトに応答し、適切なパッケージを選択してダウンロードします。
+
+
+
+
+== ONTAP Select Deploy OVA署名を確認する
+
+インストール パッケージをインストールする前に、 ONTAP Select Open Virtualization Appliance (OVA) の署名を確認する必要があります。
+
+.開始する前に
+システムが次の要件を満たしていることを確認してください。
+
+* 基本的な検証用の OpenSSL バージョン 1.0.2 から 3.0
+* オンライン証明書ステータスプロトコル (OCSP) 検証用のパブリックインターネットアクセス
+
+
+.手順
+. NetAppサポート サイトの製品ダウンロード ページから次のファイルを入手します。
++
+[cols="2*"]
+|===
+| ファイル | 説明 
+
+
+| `ONTAP-Select-Deploy-Production.pub` | 署名の検証に使用される公開鍵。 
+
+
+| `csc-prod-chain-ONTAP-Select-Deploy.pem` | 公的証明機関 (CA) の信頼チェーン。 
+
+
+| `csc-prod-ONTAP-Select-Deploy.pem` | キーを生成するために使用される証明書。 
+
+
+| `ONTAPdeploy.ova` | ONTAP Selectの製品インストール実行可能ファイル。 
+
+
+| `ONTAPdeploy.ova.sig` | SHA-256アルゴリズムはハッシュ化され、リモートサポートエージェント（RSA）によって署名されます。 `csc-prod`インストーラーのキーと署名。 
+|===
+. 確認するには `ONTAPdeploy.ova.sig`ファイルは関連付けられている証明書と検証コマンドを使用しています。
+. 次のコマンドで署名を検証します。
++
+[listing]
+----
+openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTAPdeploy.ova.sig  ONTAPdeploy.ova
+----
+
+
+
+
+== 仮想マシンを展開する
+
+OVF VMイメージを使用して、 ONTAP Select Deploy VMをインストールして起動する必要があります。インストールプロセスの一環として、ネットワークインターフェースをDHCPまたは静的IP設定を使用するように設定します。
+
+.開始する前に
+ESXi ハイパーバイザーの場合は、 ONTAP Select Deploy VM を展開する準備をする必要があります。
+
+* VMware クライアント統合プラグインをインストールするか、必要に応じて同様の構成を実行して、ブラウザで OVF 機能を有効にします。
+* デプロイVMにIPアドレスを動的に割り当てる場合は、VMware環境でDHCPを有効にします。
+
+
+ESXiおよびKVMハイパーバイザーの場合、VMの作成時に使用する構成情報（VM名、外部ネットワーク、ホスト名など）が必要です。静的ネットワーク構成を定義する場合は、以下の追加情報も必要です。
+
+* デプロイVMのIPアドレス
+* ネットマスク
+* ゲートウェイ（ルーター）のIPアドレス
+* プライマリDNSサーバーのIPアドレス
+* 2番目のDNSサーバーのIPアドレス
+* DNS検索ドメイン
+
+
+.タスク概要
+vSphere を使用する場合、OVF テンプレートのデプロイ ウィザードには、ネットワーク設定を含むすべてのデプロイ設定情報を入力するためのフォームが表示されます。ただし、このフォームを使用しない場合は、代わりにデプロイ VM のコンソールを使用してネットワークを設定することができます。
+
+.手順
+実行する手順は、ESXi ハイパーバイザーを使用するか、KVM ハイパーバイザーを使用するかによって異なります。
+
+[role="tabbed-block"]
+====
+.ESXi
+--
+. vSphere クライアントにアクセスしてサインインします。
+. 階層内の適切な場所に移動し、*OVF テンプレートのデプロイ*を選択します。
+. OVA ファイルを選択し、環境に応じて適切なオプションを選択して、OVF テンプレートのデプロイ ウィザードを完了します。
++
+管理者アカウントのパスワードを定義する必要があります。このパスワードは、Deployユーティリティにサインインする際に入力する必要があります。
+
+. VM がデプロイされたら、新しい VM を選択します。デプロイウィザードへの入力内容に基づいて VM がまだパワーオンされていない場合は、手動でパワーオンしてください。
+. 必要に応じて、VM コンソールを使用してデプロイ ネットワークを構成できます。
++
+.. *コンソール* タブをクリックして、ESXi ホスト セットアップ シェルにアクセスし、電源オン プロセスを監視します。
+.. 次のプロンプトを待ちます。
++
+ホスト名:
+
+.. ホスト名を入力して*Enter*を押します。
+.. 次のプロンプトを待ちます。
++
+管理者ユーザーのパスワードを入力してください:
+
+.. パスワードを入力して*Enter*を押します。
+.. 次のプロンプトを待ちます。
++
+DHCPを使用してネットワーク情報を設定しますか? [n]:
+
+.. 静的 IP 構成を定義するには *n* と入力し、DHCP を使用するには *y* と入力して、*Enter* を選択します。
+.. 静的構成を選択する場合は、必要に応じてすべてのネットワーク構成情報を提供します。
+
+
+
+
+--
+.KVM
+--
+. Linux サーバーの CLI にSign in。
++
+[listing]
+----
+ssh root@<ip_address>
+----
+. 新しいディレクトリを作成し、生の VM イメージを抽出します。
++
+[listing]
+----
+mkdir /home/select_deploy25
+cd /home/select_deploy25
+mv /root/<file_name> .
+tar -xzvf <file_name>
+----
+. デプロイ管理ユーティリティを実行する KVM VM を作成して起動します。
++
+[listing]
+----
+virt-install --name=select-deploy --vcpus=2 --ram=4096 --os-variant=debian10 --controller=scsi,model=virtio-scsi --disk path=/home/deploy/ONTAPdeploy.raw,device=disk,bus=scsi,format=raw --network "type=bridge,source=ontap-br,model=virtio,virtualport_type=openvswitch" --console=pty --import --noautoconsole
+----
+. 必要に応じて、VM コンソールを使用してデプロイ ネットワークを構成できます。
++
+.. VM コンソールに接続します。
++
+[listing]
+----
+virsh console <vm_name>
+----
+.. 次のプロンプトを待ちます。
++
+[listing]
+----
+Host name :
+----
+.. ホスト名を入力し、「Enter」を選択します。
+.. 次のプロンプトを待ちます。
++
+[listing]
+----
+Use DHCP to set networking information? [n]:
+----
+.. 静的 IP 構成を定義するには *n* と入力し、DHCP を使用するには *y* と入力して、*Enter* を選択します。
+.. 静的構成を選択する場合は、必要に応じてすべてのネットワーク構成情報を提供します。
+
+
+
+
+--
+====
+
+
+== デプロイウェブインターフェースにSign in
+
+デプロイ ユーティリティが利用可能であることを確認して初期構成を実行するには、Web ユーザー インターフェイスにサインインする必要があります。
+
+.手順
+. IP アドレスまたはドメイン名を使用して、ブラウザでデプロイ ユーティリティにアクセスします。
++
+`\https://<ip_address>/`
+
+. 管理者 (admin) アカウント名とパスワードを入力してサインインします。
+. *Welcome to ONTAP Select* ポップアップ ウィンドウが表示された場合は、前提条件を確認し、*OK* を選択して続行します。
+. 初めてサインインする場合、vCenter で使用可能なウィザードを使用して Deploy をインストールしていない場合は、プロンプトが表示されたら次の構成情報を入力します。
++
+** 管理者アカウントの新しいパスワード（必須）
+** AutoSupport（オプション）
+** アカウント資格情報を持つ vCenter サーバー (オプション)
+
+
+
+
+.関連情報
+* link:task_cli_signing_in.html["SSHを使用してデプロイにSign in"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["ONTAP Selectクラスタの90日間評価インスタンスを導入する"]
+

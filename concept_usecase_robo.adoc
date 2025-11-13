@@ -1,0 +1,38 @@
+---
+sidebar: sidebar 
+permalink: concept_usecase_robo.html 
+keywords: ontap select, ROBO, remote office/branch office 
+summary: '集中管理と制御を維持しながら小規模オフィスをサポートするには、リモート オフィス/ブランチ オフィス (ROBO) にONTAP Select を導入します。' 
+---
+= リモートオフィスやブランチオフィスでONTAP Selectを使用する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+集中管理と制御を維持しながら小規模オフィスをサポートするには、リモート オフィス/ブランチ オフィス (ROBO) にONTAP Select を導入します。
+
+次の ROBO 構成がサポートされています。
+
+* HA機能を備えた2ノードクラスタ
+* 単一ノードクラスタ
+
+
+ONTAP Select VM はアプリケーション VM と共存できるため、ROBO に最適なソリューションになります。
+
+ONTAP Selectを使用することで、エンタープライズクラスのファイルサービスを提供しながら、他のONTAP SelectまたはFASクラスタへの双方向レプリケーションを可能にすることで、ロータッチまたは低コストの環境で耐障害性の高いソリューションを構築できます。ONTAPONTAP Selectには、CIFS、NFS、iSCSIプロトコルサービス、およびSnapMirrorとSnapVaultのレプリケーションテクノロジーの機能ライセンスがあらかじめ用意されています。そのため、これらの機能はすべて導入後すぐにご利用いただけます。
+
+
+NOTE: VMware vSphere のすべてのライセンスがサポートされているため、Enterprise または Enterprise Plus ライセンスの代わりに、vSphere Remote Office Branch Office Standard または Advanced ライセンスを選択できます。すべての vSphere および VSAN ライセンスがサポートされるようになりました。
+
+リモートメディエータを備えた2ノードONTAP Selectクラスタは、小規模データセンターにとって魅力的なソリューションです。この構成では、 ONTAP SelectによってHA機能が提供されます。2ノードONTAP Select ROBOソリューションの最小ネットワーク要件は、1Gbリンク4つです。10Gbネットワーク接続もサポートされています。VSAN（2ノードVSAN ROBO構成を含む）上で実行されるvNAS ONTAP Selectソリューションも選択肢の1つです。この構成では、HA機能はVSANによって提供されます。最後に、データをコアロケーションに複製するシングルノードONTAP Selectクラスタは、コモディティサーバ上で堅牢なエンタープライズデータ管理ツールセットを提供できます。
+
+次の図は、VM ESXi上でONTAP Selectを使用した一般的なリモートオフィス構成を示しています。スケジュール駆動型のSnapMirror関係により、リモートオフィスのデータはメインデータセンターにある単一の統合エンジニアリングストレージアレイに定期的に複製されます。
+
+*リモートオフィスから企業データセンターへの定期バックアップ*
+
+image:ROBO_01.jpg["リモートオフィスから企業データセンターへの定期バックアップ"]

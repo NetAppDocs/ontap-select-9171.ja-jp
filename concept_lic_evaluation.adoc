@@ -1,0 +1,70 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_evaluation.html 
+keywords: license, licensing, evaluation, upgrade license 
+summary: 購入を決定する前にONTAP Selectを評価したい場合は、評価ライセンスを使用できます。評価ライセンスはONTAP Select Deploy管理ユーティリティに含まれており、評価導入の一環として各ONTAP Selectノードに自動的に適用されます。 
+---
+= ONTAP Select導入の評価ライセンス
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Selectは、評価ライセンスまたは購入ライセンスを使用して導入できます。選択したライセンスは、 ONTAP Selectクラスタ内の各ノード、つまりクラスタ全体に適用する必要があります。購入を決定する前にONTAP Selectを評価したい場合は、評価ライセンスを使用できます。評価ライセンスはONTAP Select Deploy管理ユーティリティに含まれており、評価導入の一環として各ONTAP Selectノードに自動的に適用されます。
+
+[NOTE]
+====
+ONTAP Select Deploy 管理ユーティリティをダウンロードするには、次のものが必要です。
+
+* NetAppサポートサイトの登録アカウント。アカウントをお持ちでない場合は、 https://mysupport.netapp.com/site/user/registration["ユーザ登録"^] 。
+* に https://mysupport.netapp.com/site/downloads/evaluation/ontap-select["エンドユーザーライセンス契約に同意する"^]評価ライセンスを使用したONTAP Select導入の場合。
+
+
+====
+評価クラスターを展開およびサポートする際には、いくつかの考慮事項があります。
+
+* クラスタは評価目的でのみ使用できます。評価ライセンスを持つクラスタを本番環境で使用しないでください。
+* 各ホストを設定するときは、次のようにONTAP Select Deploy 管理ユーティリティを使用する必要があります。
++
+** シリアル番号を入力しないでください
+** 評価ライセンスを使用するように設定
+
+
+
+
+
+
+== ライセンスの特徴
+
+ONTAP Select評価ライセンスには次の特性があります。
+
+* ストレージ容量を備えた生産ライセンスは必要ありません
+* ノードのシリアル番号は20桁で、 ONTAP Select Deployによって自動的に生成されます。
++
+( NetAppから直接取得するわけではありません)
+
+* ライセンスによって提供される評価期間は最大90日間です。
+* 各ノードに割り当てられる最大ストレージは、実稼働ライセンスと同じです。
+
+
+
+
+== 製品ライセンスへのアップグレード
+
+ONTAP Select評価クラスタをアップグレードして本番環境ライセンスを使用できます。ただし、以下の制限事項にご注意ください。
+
+* ライセンスのアップグレードを実行するには、Deploy管理ユーティリティを使用する必要があります。
+* 容量階層ライセンスは使用できますが、容量プールライセンスはサポートされていません。
+* 各ノードには、クラスタのサイズに基づいて、実稼働ライセンスに必要な最小限のものをサポートするのに十分なストレージが割り当てられている必要があります。
+
+
+見るlink:task_adm_licenses.html["評価ライセンスを製品ライセンスに変換する"]詳細についてはこちらをご覧ください。
+
+.関連情報
+* link:concept_lic_production.html["実稼働環境への導入に関するライセンスについて学ぶ"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["ONTAP Selectクラスタの90日間評価インスタンスを導入する"]
+

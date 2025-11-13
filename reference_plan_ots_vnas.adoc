@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_vnas.html 
+keywords: plan, planning, vnas, vmware esxi, 
+summary: VMware ESXi の使用に関連して、考慮すべき計画上の問題がいくつかあります。 
+---
+= ONTAP Select VMware ESXi の要件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Select vNASは、ONTAP Selectデータストアを、 ONTAP Select仮想マシンが実行されるESXiハイパーバイザーホストの外部に配置することを可能にするソリューションです。これらのリモートデータストアには、VMware vSANまたは汎用の外部ストレージアレイを介してアクセスできます。
+
+
+
+== 基本的な要件と制限
+
+ONTAP Select vNAS ソリューションは、あらゆるサイズのONTAP Selectクラスタで使用できます。
+
+ハードウェア、ソフトウェア、機能要件を含むすべての関連ストレージコンポーネントは、link:https://mysupport.netapp.com/matrix/["Interoperability Matrix Tool"^] 。さらに、 ONTAP Selectは、iSCSI、NAS（NFSv3）、ファイバチャネル、Fibre Channel over Ethernetなど、VMwareストレージ/SAN互換性ドキュメントに記載されているすべての外部ストレージアレイをサポートします。外部アレイのサポートは、 ONTAP SelectでサポートされるESXiのバージョンによって制限されます。
+
+ONTAP Select vNAS を使用してクラスターを展開する場合、次の VMware 機能がサポートされます。
+
+* VMotion
+* 高可用性（HA）
+* Distributed Resource Scheduler（DRS）
+
+
+
+NOTE: これらのVMware機能は、シングルノードおよびマルチノードのONTAP Selectクラスタでサポートされています。マルチノードクラスタを導入する場合は、同じクラスタの2つ以上のノードが同じハイパーバイザーホスト上で実行されないようにする必要があります。
+
+VMwareの次の機能はサポートされません。
+
+* フォールトトレランス（FT）
+* 仮想データストア（VVOL）
+
+
+
+
+== 構成要件
+
+外部ストレージアレイ（iSCSI、ファイバチャネル、ファイバチャネルオーバーイーサネット）上のVMFSデータストアを使用する場合は、 ONTAP Selectでそのストレージを使用するように設定する前に、VMFSストレージプールを作成する必要があります。NFSデータストアを使用する場合は、別途VMFSデータストアを作成する必要はありません。すべてのvSANデータストアは、同じESXiクラスタ内に定義する必要があります。
+
+
+CAUTION: ホストの設定時またはストレージ追加操作を実行する際には、VMware vSAN または外部ストレージアレイ上のすべてのデータストアに容量制限を指定する必要があります。指定する容量は、外部ストレージの許容ストレージ制限内でなければなりません。容量制限を指定しなかった場合、またはディスク作成操作中に外部ストレージの容量が不足した場合は、エラーが発生します。
+
+
+
+== ベストプラクティス
+
+利用可能なVMwareドキュメントを参照し、ESXiホストに適用されるベストプラクティスに従ってください。さらに、以下の点に留意してください。
+
+* ONTAP Selectネットワークと外部ストレージ（iSCSI または NFS を使用する場合の VMware vSAN および汎用ストレージ アレイ トラフィック）の専用ネットワーク ポート、帯域幅、および vSwitch 構成を定義します。
+* ストレージ使用率を制限するために容量オプションを設定します（ONTAP Selectは外部vNASデータストアの全容量を消費することはできません）。
+* すべての汎用外部ストレージアレイが、可能な限り利用可能な冗長性と HA 機能を使用していることを確認します。
+

@@ -1,0 +1,128 @@
+---
+sidebar: sidebar 
+permalink: esxi-host-configuration-and-preparation-checklist.html 
+keywords: ontap select, pre-installation checklist, esxi, host preparation 
+summary: ONTAP Selectノードを導入する各ESXiハイパーバイザーホストを準備します。ホストを準備する際には、導入環境を慎重に評価し、ホストが適切に設定され、 ONTAP Selectクラスタの導入をサポートできる状態であることを確認します。 
+---
+= ONTAP Selectの ESXi ホスト構成と準備チェックリスト
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Selectノードを導入する各ESXiハイパーバイザーホストを準備します。ホストを準備する際には、導入環境を慎重に評価し、ホストが正しく設定され、 ONTAP Selectクラスタの導入をサポートできる状態であることを確認します。
+
+
+NOTE: ONTAP Select Deploy管理ユーティリティは、ハイパーバイザーホストに必要なネットワークおよびストレージ設定を実行しません。ONTAPONTAP Selectクラスタを導入する前に、各ホストを手動で準備する必要があります。
+
+
+
+== ステップ1: ESXiハイパーバイザーホストを準備する
+
+ESXi ホストとファイアウォール ポートの構成を確認します。
+
+.手順
+. 各 ESXi が次のように構成されていることを確認します。
++
+** プリインストールされサポートされているハイパーバイザー
+** VMware vSphere ライセンス
+
+
+. 同じ vCenter Server が、クラスタ内にONTAP Selectノードが展開されているすべてのホストを管理できることを確認します。
+. ファイアウォールポートがvSphereへのアクセスを許可するように設定されていることを確認してください。ONTAPONTAP Select仮想マシンへのシリアルポート接続をサポートするには、これらのポートが開いている必要があります。
++
+[role="tabbed-block"]
+====
+.推奨
+--
+NetApp、vSphere へのアクセスを許可するために次のファイアウォール ポートを開くことを推奨しています。
+
+** ポート7200～7400（受信トラフィックと送信トラフィックの両方）
+
+
+--
+.デフォルト
+--
+デフォルトでは、VMware は次のポートへのアクセスを許可します。
+
+** ポート22およびポート1024～65535（受信トラフィック）
+** ポート0～65535（送信トラフィック）
+
+
+--
+====
++
+詳細については、link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-security-8-0/securing-esxi-hosts/customizing-hosts-with-the-security-profile/esxi-firewall-configuration.html["Broadcom VMware vSphere ドキュメント"^] 。
+
+. 必要な vCenter 権限について理解しておいてください。見るlink:reference_plan_ots_vcenter.html["VMware vCenter Server"]詳細についてはこちらをご覧ください。
+
+
+
+
+== ステップ2: ONTAP Selectクラスタ構成を確認する
+
+ONTAP Selectは、マルチノードクラスタまたはシングルノードクラスタのいずれかで導入できます。多くの場合、追加のストレージ容量と高可用性（HA）機能があるため、マルチノードクラスタが推奨されます。
+
+次の図は、単一ノード クラスタと 4 ノード クラスタで使用されるONTAP Selectネットワークを示しています。
+
+[role="tabbed-block"]
+====
+.単一ノードクラスタ
+--
+次の図は、単一ノードクラスタを示しています。外部ネットワークは、クライアント、管理、およびクラスタ間レプリケーション（SnapMirror/ SnapVault）のトラフィックを伝送します。
+
+image:CHK_01.jpg["1つのネットワークを示す単一ノードクラスタ"]
+
+--
+.4ノードクラスター
+--
+次の図は、2つのネットワークを示す4ノードクラスタを示しています。内部ネットワークは、 ONTAPクラスタネットワークサービスをサポートするためにノード間の通信を可能にします。外部ネットワークは、クライアント、管理、およびクラスタ間レプリケーション（SnapMirror/ SnapVault）のトラフィックを伝送します。
+
+image:CHK_02.jpg["2つのネットワークを示す4ノードのクラスター"]
+
+--
+.4ノードクラスタ内の単一ノード
+--
+次の図は、4ノードクラスタ内の単一のONTAP Select仮想マシンの一般的なネットワーク構成を示しています。ONTAP内部ONTAPとONTAP外部ネットワークという2つの独立したネットワークがあります。
+
+image:CHK_03.jpg["4ノードクラスタ内の単一ノード"]
+
+--
+====
+
+
+== ステップ3: Open vSwitchを構成する
+
+vSwitchは、内部ネットワークと外部ネットワークの接続をサポートするために使用される、ハイパーバイザーの中核コンポーネントです。各ハイパーバイザーvSwitchの設定では、いくつか考慮すべき点があります。
+
+次の手順は、一般的なネットワーク環境で 2 つの物理ポート (2x10Gb) を備えた ESXi ホストの vSwitch 構成用です。
+
+.手順
+. link:concept_nw_vsphere_vswitch_config.html["vSwitchを設定し、両方のポートをvSwitchに割り当てます"]。
+. link:concept_nw_vsphere_vswitch_config.html["2つのポートを使用してNICチームを作成する"]。
+. 負荷分散ポリシーを「発信元仮想ポート ID に基づいてルートする」に設定します。
+. 両方のアダプタを「アクティブ」としてマークするか、1 つのアダプタを「アクティブ」としてマークし、もう 1 つを「スタンバイ」としてマークします。
+. 「フェイルバック」設定を「はい」に設定します。
++
+image:CHK_04.jpg["vSwitchのプロパティ）"]
+
+. ジャンボ フレーム (9000 MTU) を使用するように vSwitch を構成します。
+. 内部トラフィック (ONTAP-internal) 用に vSwitch 上のポート グループを構成します。
++
+** ポート グループは、クラスタ、HA 相互接続、およびミラーリング トラフィックに使用されるONTAP Select仮想ネットワーク アダプタ e0c-e0g に割り当てられます。
+** このネットワークはプライベートネットワークとなるため、ポートグループはルーティング不可能なVLAN上に配置する必要があります。この点を考慮して、ポートグループに適切なVLANタグを追加してください。
+** ポート グループの負荷分散、フェイルバック、フェイルオーバー順序の設定は、vSwitch と同じにする必要があります。
+
+
+. 外部トラフィック用に vSwitch 上のポート グループを構成します (ONTAP-external)。
++
+** ポート グループは、データおよび管理トラフィックに使用されるONTAP Select仮想ネットワーク アダプタ e0a ～ e0c に割り当てられます。
+** ポートグループはルーティング可能なVLAN上に配置できます。ネットワーク環境に応じて、適切なVLANタグを追加するか、ポートグループをVLANトランキング用に設定する必要があります。
+** ポート グループの負荷分散、フェイルバック、フェイルオーバー順序の設定は、vSwitch と同じにする必要があります。
+
+
+

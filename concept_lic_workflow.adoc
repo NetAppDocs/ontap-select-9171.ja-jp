@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: concept_lic_workflow.html 
+keywords: license, licensing, purchase, purchasing, workflow 
+summary: ワークフローに従って、 ONTAP Selectデプロイメント用のライセンスを購入して適用することができます。 
+---
+= ONTAP Selectライセンスを購入する際のワークフロー
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+以下のワークフローは、 ONTAP Select環境のライセンスを購入して適用するプロセスを示しています。ライセンスを購入する際には、ライセンスモデルとストレージ容量を選択する必要があります。
+
+正確なプロセスは、Capacity Tier ライセンスを使用しているか、Capacity Pool ライセンスを使用しているかによって異なります。
+
+9桁のライセンスシリアル番号:: シリアル番号は、ノード（容量階層）またはストレージプール（容量プール）のいずれかに適用されます。
+ライセンスロックID:: キャパシティプールライセンスを使用する場合は、デプロイインスタンスのライセンスロックIDが必要です。
+ライセンスウェブサイト:: 容量層ライセンスと容量プールライセンスを別のWebサイトで取得します
+
+
+image:purchased_license_workflow.png["本番環境のONTAP Select展開用のストレージ ライセンスを購入してインストールするプロセスについて説明します。"]
+
+.関連情報
+link:task_adm_licenses.html["ONTAP Selectライセンス"]

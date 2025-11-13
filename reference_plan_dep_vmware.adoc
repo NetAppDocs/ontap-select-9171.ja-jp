@@ -1,0 +1,126 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_dep_vmware.html 
+keywords: plan, planning, ontap select deploy, vmware requirements 
+summary: ONTAP Select Deploy ユーティリティを VMware 環境にインストールする前に考慮する必要がある、VMware 環境に固有の要件と制限がいくつかあります。 
+---
+= ONTAP Select Deployハイパーバイザーホストの考慮事項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ハイパーバイザー ホストに関連して、考慮すべき計画上の問題がいくつかあります。
+
+
+CAUTION: NetAppサポートからの指示がない限り、 ONTAP Select仮想マシンの設定を直接変更しないでください。仮想マシンの設定と変更は、必ずDeploy管理ユーティリティを使用して行ってください。NetAppサポートの支援なしに、 NetAppユーティリティを使用せずにONTAP Select仮想マシンに変更を加えると、仮想マシンに障害が発生し、使用できなくなる可能性があります。
+
+
+
+== ハイパーバイザーに依存しない
+
+ONTAP SelectとONTAP Select Deploy 管理ユーティリティはどちらもハイパーバイザーに依存しません。
+
+次のハイパーバイザーは、ONTAP SelectとONTAP Select Deploy 管理の両方でサポートされています。
+
+* VMware ESXi
+* カーネルベースの仮想マシン (KVM)
+
+
+
+NOTE: サポートされているプラットフォームに関する詳細については、ハイパーバイザー固有の計画情報とリリース ノートを参照してください。
+
+.ONTAP Selectノードおよび管理ユーティリティ用のハイパーバイザー
+Deploy管理ユーティリティとONTAP Selectノードはどちらも仮想マシンとして動作します。Deployユーティリティ用に選択するハイパーバイザーは、 ONTAP Selectノード用に選択するハイパーバイザーとは独立しています。この2つを組み合わせる際には、以下の柔軟性が確保されています。
+
+* VMware ESXi上で実行されるデプロイユーティリティは、VMware ESXiまたはKVM上でONTAP Selectクラスタを作成および管理できます。
+* KVM上で実行される導入ユーティリティは、VMware ESXiまたはKVM上でONTAP Selectクラスタを作成および管理できます。
+
+
+.ホストごとに 1 つ以上のONTAP Selectノードのインスタンス
+各ONTAP Selectノードは専用の仮想マシンとして実行されます。同じハイパーバイザーホスト上に複数のノードを作成できますが、以下の制限があります。
+
+* 単一のONTAP Selectクラスタの複数のノードを同じホスト上で実行することはできません。特定のホスト上のすべてのノードは、異なるONTAP Selectクラスタに属している必要があります。
+* 外部ストレージを使用する必要があります。
+* ソフトウェア RAID を使用する場合、ホストに導入できるONTAP Selectノードは 1 つだけです。
+
+
+.クラスタ内のノードのハイパーバイザーの一貫性
+ONTAP Selectクラスタ内のすべてのホストは、同じバージョンおよびリリースのハイパーバイザ ソフトウェアで実行する必要があります。
+
+.各ホストの物理ポートの数
+各ホストは、1つ、2つ、または4つの物理ポートを使用するように設定する必要があります。ネットワークポートの設定は柔軟に行うことができますが、可能な限り以下の推奨事項に従ってください。
+
+* 単一ノード クラスター内のホストには 2 つの物理ポートが必要です。
+* マルチノードクラスタ内の各ホストには4つの物理ポートが必要です
+
+
+.ONTAP SelectをONTAPハードウェアベースのクラスタと統合する
+ONTAP SelectノードをONTAPハードウェアベースクラスタに直接追加することはできません。ただし、オプションでONTAP SelectクラスタとハードウェアベースONTAPクラスタの間にクラスタピア関係を確立することは可能です。
+
+
+
+== VMwareハイパーバイザー環境
+
+ONTAP Select Deploy ユーティリティを VMware 環境にインストールする前に考慮する必要がある、VMware 環境に固有の要件と制限がいくつかあります。
+
+.ESXiホストサーバーのハードウェア要件
+ESXiハイパーバイザーホストには、いくつかの最低限のリソース要件を満たす必要があります。ONTAPONTAP Selectを導入するホストが、以下の基本要件を満たしていることを確認する必要があります。
+
+* ESXi サーバー:
++
+** ハードウェアとソフトウェアは64ビットである必要があります
+** ONTAP Selectノードに定義されているのと同じサポートバージョンに準拠する必要があります
+
+
+* 仮想CPU (2)
+* 仮想メモリ（4 GB）
+* ストレージ（40 GB）
+* DHCP 対応 (静的 IP アドレスの割り当ても可能)
+
+
+.ネットワーク接続
+ONTAP Select Deploy仮想マシンのネットワークインターフェイスが設定され、単一の管理IPアドレスが割り当てられていることを確認する必要があります。DHCPを使用してIPアドレスを動的に割り当てることも、手動で静的IPアドレスを設定することもできます。
+
+導入時の決定に応じて、Deploy VM は管理対象の vCenter Server、ESXi ハイパーバイザーホスト、およびONTAP Selectノードに接続できる必要があります。必要なトラフィックを許可するようにファイアウォールを設定する必要があります。
+
+Deploy は、VMware VIX API を使用して vCenter Server および ESXi ホストと通信します。最初に、TCP ポート 443 で SOAP over SSL を使用して接続を確立します。その後、ポート 902 で SSL を使用して接続が開かれます。さらに、Deploy は PING コマンドを発行して、指定した IP アドレスに ESXi ホストが存在するかどうかを確認します。
+
+Deploy は、次のプロトコルを使用してONTAP Selectノードおよびクラスタ管理 IP アドレスと通信できる必要があります。
+
+* PINGコマンド（ICMP）
+* SSH（ポート22）
+* SSL（ポート443）
+
+
+.IPバージョン4のサポート
+ONTAP Select DeployはIPバージョン4（IPv4）のみをサポートします。IPバージョン6（IPv6）はサポートされていません。この制限は、 ONTAP Selectに以下の影響を与えます。
+
+* Deploy 仮想マシンの管理 LIF に IPv4 アドレスを割り当てる必要があります。
+* Deploy では、 ONTAP LIF で IPv6 を使用するように設定されたONTAP Selectノードを作成できません。
+
+
+
+
+== ONTAP Select Deploy VMware vCenter Server の考慮事項
+
+
+
+=== ESA の VMware vSphere 権限
+
+以下は、vCenter で vSAN Express Storage Architecture (ESA) を作成および管理するために必要な vSphere コンテンツ ライブラリの特定の権限の一覧です。
+
+* ライブラリアイテムを追加
+* ローカルライブラリを作成する
+* ライブラリアイテムを削除
+* ローカルライブラリを削除する
+* ストレージの読み取り
+* ファイルの更新
+* ライブラリを更新
+* ライブラリアイテムを更新
+* ローカルライブラリを更新する
+

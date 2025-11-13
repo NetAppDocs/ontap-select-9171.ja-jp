@@ -1,0 +1,251 @@
+---
+sidebar: sidebar 
+permalink: concept_stor_swraid_local.html 
+keywords: ontap select, software raid, local attached storage, protection 
+summary: ソフトウェアRAIDは、 ONTAPソフトウェアスタック内に実装されたRAID抽象化レイヤーです。FASFASの従来のONTAPプラットフォーム内のRAIDレイヤーと同じ機能を提供します。RAIDレイヤーはドライブのパリティ計算を実行し、 ONTAP Selectノード内の個々のドライブ障害に対する保護を提供します。 
+---
+= ローカル接続ストレージ用のONTAP Selectソフトウェア RAID 構成サービス
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ソフトウェアRAIDは、 ONTAPソフトウェアスタック内に実装されたRAID抽象化レイヤーです。FASFASの従来のONTAPプラットフォーム内のRAIDレイヤーと同じ機能を提供します。RAIDレイヤーはドライブのパリティ計算を実行し、 ONTAP Selectノード内の個々のドライブ障害に対する保護を提供します。
+
+ONTAP Selectは、ハードウェアRAID構成とは別に、ソフトウェアRAIDオプションも提供しています。ONTAPONTAP Selectを小型フォームファクタの汎用ハードウェアに導入する場合など、特定の環境ではハードウェアRAIDコントローラが利用できない、または望ましくない場合があります。ソフトウェアRAIDは、利用可能な導入オプションを拡張し、そのような環境にも対応します。お使いの環境でソフトウェアRAIDを有効にするには、以下の点に留意してください。
+
+* Premium または Premium XL ライセンスで利用できます。
+* ONTAPルート ディスクとデータ ディスクには、SSD または NVMe (Premium XL ライセンスが必要) ドライブのみがサポートされます。
+* ONTAP Select VM ブート パーティションには別のシステム ディスクが必要です。
++
+** システム ディスク (マルチノード セットアップでは、 NVRAM、ブート/CF カード、コアダンプ、メディエーター) のデータストアを作成するには、SSD または NVMe ドライブのいずれかの別のディスクを選択します。
+
+
+
+
+[NOTE]
+====
+* サービス ディスクとシステム ディスクという用語は同じ意味で使用されます。
++
+** サービス ディスクは、クラスタリング、ブートなどのさまざまな項目を処理するためにONTAP Select VM 内で使用される仮想ディスク (VMDK) です。
+** サービスディスクは、ホストから見ると、単一の物理ディスク（総称してサービス/システム物理ディスクと呼ばれます）上に物理的に配置されます。この物理ディスクにはDASデータストアが含まれている必要があります。ONTAPONTAPは、クラスタの導入時にONTAP Select VM用にこれらのサービスディスクを作成します。
+
+
+* ONTAP Selectシステム ディスクを複数のデータストアまたは複数の物理ドライブにさらに分割することはできません。
+* ハードウェア RAID は非推奨ではありません。
+
+
+====
+
+
+== ローカル接続ストレージのソフトウェア RAID 構成
+
+ソフトウェア RAID を使用する場合、ハードウェア RAID コントローラが存在しないことが理想的ですが、システムに既存の RAID コントローラが存在する場合は、次の要件に従う必要があります。
+
+* ディスクをシステムに直接認識させるには（JBOD）、ハードウェアRAIDコントローラを無効にする必要があります。通常、この変更はRAIDコントローラのBIOSで行うことができます。
+* または、ハードウェアRAIDコントローラがSAS HBAモードになっている必要があります。例えば、一部のBIOS設定ではRAIDに加えて「AHCI」モードが使用できるため、JBODモードを有効にすることができます。これによりパススルーが有効になり、物理ドライブがホスト上でそのまま表示されます。
+
+
+コントローラーがサポートするドライブの最大数によっては、追加のコントローラーが必要になる場合があります。SASHBAモードの場合は、I/Oコントローラー（SAS HBA）が最低6Gbpsの速度でサポートされていることを確認してください。ただし、NetAppが推奨するのは速度12Gbpsです。
+
+その他のハードウェアRAIDコントローラのモードや構成はサポートされていません。例えば、一部のコントローラではRAID 0をサポートしており、これによりディスクのパススルーを人為的に有効にすることができますが、望ましくない結果が生じる可能性があります。サポートされる物理ディスク（SSDのみ）のサイズは200GBから16TBです。
+
+
+NOTE: 管理者は、 ONTAP Select VM で使用されているドライブを追跡し、ホスト上でそれらのドライブが誤って使用されるのを防ぐ必要があります。
+
+
+
+== ONTAP Selectの仮想ディスクと物理ディスク
+
+ハードウェアRAIDコントローラを使用した構成では、物理ディスクの冗長性はRAIDコントローラによって提供されます。ONTAPONTAP Selectには1つ以上のVMDKが提供され、 ONTAP管理者はそこからデータアグリゲートを構成できます。これらのVMDKはRAID 0形式でストライピングされます。これは、 ONTAPソフトウェアRAIDではハードウェアレベルで提供される復元力のため、冗長性、効率性、効果性が低下するためです。さらに、システムディスクに使用されるVMDKは、ユーザーデータを格納するVMDKと同じデータストアに配置されます。
+
+ソフトウェア RAID を使用する場合、 ONTAP Deploy は、SSD の場合は VMDK と物理ディスクの Raw デバイス マッピング (RDM)、NVMe の場合はパススルーまたは DirectPath IO デバイスのセットをONTAP Selectに提示します。
+
+次の図は、この関係をより詳細に示しており、 ONTAP Select VM 内部に使用される仮想化ディスクと、ユーザー データの保存に使用される物理ディスクの違いを強調しています。
+
+* ONTAP Selectソフトウェア RAID: 仮想化ディスクと RDM の使用*
+
+image:ST_18.PNG["ONTAP Selectソフトウェア RAID: 仮想化ディスクと RDM の使用"]
+
+システムディスク（VMDK）は、同じデータストアおよび同じ物理ディスク上に存在します。仮想NVRAMディスクには、高速で耐久性の高いメディアが必要です。そのため、NVMeおよびSSDタイプのデータストアのみがサポートされます。
+
+image:ST_19.PNG["ONTAP SelectソフトウェアRAIDとNVMeドライブ：仮想化ディスクとパススルーデバイスの使用"]
+
+システムディスク（VMDK）は、同じデータストアおよび同じ物理ディスク上に存在します。仮想NVRAMディスクには、高速で耐久性の高いメディアが必要です。そのため、NVMeおよびSSDタイプのデータストアのみがサポートされます。データにNVMeドライブを使用する場合は、パフォーマンス上の理由から、システムディスクもNVMeデバイスである必要があります。オールNVMe構成のシステムディスクとしては、INTEL Optaneカードが適しています。
+
+
+NOTE: 現在のリリースでは、 ONTAP Selectシステム ディスクを複数のデータストアまたは複数の物理ドライブにさらに分割することはできません。
+
+各データディスクは、小さなルートパーティション（ストライプ）と、 ONTAP Select VM内に表示される2つのデータディスクを作成するための2つの同じサイズのパーティションの3つの部分に分割されます。パーティションは、単一ノードクラスタと高可用性（HA）ペアのノードについて、次の図に示すように、ルートデータデータ（RD2）スキーマを使用します。
+
+`P`パリティドライブを表します。 `DP`デュアルパリティドライブを示し、 `S`スペアドライブを示します。
+
+*シングルノードクラスタのRDDディスクパーティショニング*
+
+image:ST_19.jpg["単一ノードクラスタのRDDディスクパーティショニング"]
+
+*マルチノードクラスタ（HAペア）のRDDディスクパーティショニング*
+
+image:ST_20.jpg["マルチノードクラスタ（HAペア）のRDDディスクパーティショニング"]
+
+ONTAPソフトウェア RAID は、RAID 4、RAID-DP、およびRAID-TECという RAID タイプをサポートしています。これらは、 FASおよびAFFプラットフォームで使用される RAID 構造と同じです。ルート プロビジョニングの場合、 ONTAP Select はRAID 4 と RAID-DP のみをサポートします。データ アグリゲートにRAID-TECを使用する場合、全体的な保護は RAID-DP になります。ONTAPONTAP Select HA は、各ノードの設定を他のノードに複製するシェアード ナッシング アーキテクチャを使用します。つまり、各ノードは自身のルート パーティションと、ピアのルート パーティションのコピーを保存する必要があります。データ ディスクには 1 つのルート パーティションがあります。つまり、データ ディスクの最小数は、 ONTAP Selectノードが HA ペアの一部であるかどうかによって異なります。
+
+単一ノードクラスタの場合、すべてのデータパーティションはローカル（アクティブ）データの保存に使用されます。HAペアを構成するノードの場合、1つのデータパーティションはそのノードのローカル（アクティブ）データの保存に使用され、もう1つのデータパーティションはHAピアからのアクティブデータのミラーリングに使用されます。
+
+
+
+== パススルー（DirectPath IO）デバイスとRawデバイスマップ（RDM）
+
+ESX および KVM ハイパーバイザーは、NVMe ディスクを Raw デバイス マップ（RDM）としてサポートしていません。ONTAPONTAP Select でNVMe ディスクを直接制御できるようにするには、これらのドライブを ESX または KVM 内でパススルー デバイスとして設定する必要があります。NVMeデバイスをパススルー デバイスとして設定する場合、サーバ BIOS からのサポートが必要であり、ホストの再起動が必要になる場合があります。また、ホストごとに割り当て可能なパススルー デバイスの数には制限があり、プラットフォームによって異なる場合があります。ただし、 ONTAP Deploy では、 ONTAP Selectノードあたり 14 台の NVMe デバイスに制限されています。つまり、NVMe 構成では、総容量を犠牲にして、非常に高い IOPS 密度（IOPS/TB）が提供されます。または、大容量のストレージ容量を備えた高パフォーマンス構成が必要な場合は、大規模なONTAP Select VM サイズ、システム ディスク用の INTEL Optane カード、データ ストレージ用の公称数の SSD ドライブという構成が推奨されます。
+
+
+NOTE: NVMe のパフォーマンスを最大限に活用するには、大きなONTAP Select VM サイズを検討してください。
+
+パススルーデバイスとRDMには、さらに違いがあります。RDMは実行中のVMにマッピングできます。パススルーデバイスではVMの再起動が必要です。つまり、NVMeドライブの交換または容量拡張（ドライブ追加）手順を実行するには、 ONTAP Select VMの再起動が必要になります。ドライブ交換および容量拡張（ドライブ追加）操作は、 ONTAP Deployのワークフローによって実行されます。ONTAPDeployは、シングルノードクラスタのONTAP ONTAP Selectの再起動と、HAペアのフェイルオーバー/フェイルバックを管理します。ただし、SSDデータドライブ（ ONTAP Selectの再起動/フェイルオーバーは不要）とNVMeデータドライブ（ONTAP Selectの再起動/フェイルオーバーが必要）の操作の違いに注意することが重要です。
+
+
+
+== 物理ディスクと仮想ディスクのプロビジョニング
+
+より効率的なユーザエクスペリエンスを提供するために、 ONTAP Deployは指定されたデータストア（物理システムディスク）からシステム（仮想）ディスクを自動的にプロビジョニングし、 ONTAP Select VMに接続します。この処理は初期セットアップ時に自動的に実行されるため、 ONTAP Select VMは起動できます。RDMはパーティション分割され、ルートアグリゲートが自動的に構築されます。ONTAPONTAP SelectノードがHAペアの一部である場合、データパーティションはローカルストレージプールとミラーストレージプールに自動的に割り当てられます。この割り当ては、クラスタ作成操作とストレージ追加操作の両方で自動的に実行されます。
+
+ONTAP Select VM 上のデータ ディスクは基盤となる物理ディスクに関連付けられているため、多数の物理ディスクを含む構成を作成するとパフォーマンスに影響が生じます。
+
+
+NOTE: ルートアグリゲートのRAIDグループタイプは、利用可能なディスクの数によって異なります。ONTAPDeployは適切なRAIDグループタイプを選択します。ノードに十分なディスクが割り当てられている場合はRAID-DPが使用され、そうでない場合はRAID-4ルートアグリゲートが作成されます。
+
+ソフトウェアRAIDを使用してONTAP Select VMに容量を追加する場合、管理者は物理ドライブのサイズと必要なドライブ数を考慮する必要があります。詳細については、link:concept_stor_capacity_inc.html["ストレージ容量を増やす"] 。
+
+FASおよびAFFシステムと同様に、既存のRAIDグループには、同等以上の容量のドライブのみを追加できます。容量が大きいドライブは適切なサイズに調整されます。新しいRAIDグループを作成する場合は、全体的なパフォーマンスが低下しないように、新しいRAIDグループのサイズを既存のRAIDグループのサイズと一致させる必要があります。
+
+
+
+== ONTAP Selectディスクを対応するESXまたはKVMディスクに一致させる
+
+ONTAP Selectディスクは通常、NET xy というラベルが付けられます。次のONTAPコマンドを使用してディスクの UUID を取得できます。
+
+[source, cli]
+----
+<system name>::> disk show NET-1.1
+Disk: NET-1.1
+Model: Micron_5100_MTFD
+Serial Number: 1723175C0B5E
+UID: *500A0751:175C0B5E*:00000000:00000000:00000000:00000000:00000000:00000000:00000000:00000000
+BPS: 512
+Physical Size: 894.3GB
+Position: shared
+Checksum Compatibility: advanced_zoned
+Aggregate: -
+Plex: -This UID can be matched with the device UID displayed in the ‘storage devices’ tab for the ESX host
+----
+image:ST_21.jpg["ONTAP Selectディスクと対応する ESX ディスクのマッチング"]
+
+ESXi または KVM シェルで次のコマンドを入力すると、特定の物理ディスク (naa.unique-id で識別) の LED を点滅させることができます。
+
+[role="tabbed-block"]
+====
+.ESX
+--
+[source, cli]
+----
+esxcli storage core device set -d <naa_id> -l=locator -L=<seconds>
+----
+--
+.KVM
+--
+[source, cli]
+----
+cat /sys/block/<block_device_id>/device/wwid
+----
+--
+====
+
+
+== ソフトウェアRAID使用時の複数のドライブ障害
+
+システムでは、複数のドライブが同時に故障状態になる状況が発生する可能性があります。システムの動作は、RAID全体の保護レベルと故障したドライブの数によって異なります。
+
+RAID4 アグリゲートは 1 つのディスク障害に耐えることができ、RAID-DP アグリゲートは 2 つのディスク障害に耐えることができ、 RAID-TECアグリゲートは 3 つのディスク障害に耐えることができます。
+
+障害ディスクの数がRAIDタイプがサポートする最大障害数未満で、スペアディスクが利用可能な場合、再構築プロセスが自動的に開始されます。スペアディスクが利用できない場合は、スペアディスクが追加されるまで、アグリゲートは縮退状態でデータを提供します。
+
+障害が発生したディスクの数が、RAIDタイプがサポートする最大障害数を超える場合、ローカルプレックスは障害とマークされ、アグリゲートの状態はデグレード状態になります。データは、HAパートナーにある2つ目のプレックスから提供されます。つまり、ノード1へのI/O要求はすべて、クラスタインターコネクトポートe0e（iSCSI）を介して、物理的にノード2にあるディスクに送信されます。2つ目のプレックスにも障害が発生した場合、アグリゲートは障害とマークされ、データは利用できなくなります。
+
+データのミラーリングを正しく再開するには、障害が発生したプレックスを削除して再作成する必要があります。複数のディスク障害によってデータアグリゲートがデグレードすると、ルートアグリゲートもデグレードされることに注意してください。ONTAPONTAP Selectは、ルートデータデータ（RDD）パーティショニングスキーマを使用して、各物理ドライブを1つのルートパーティションと2つのデータパーティションに分割します。そのため、1つ以上のディスクが失われると、ローカルルートまたはリモートルートアグリゲートのコピー、およびローカルデータアグリゲートとリモートデータアグリゲートのコピーを含む複数のアグリゲートに影響が及ぶ可能性があります。
+
+次の出力例では、障害が発生したプレックスが削除され、再作成されています。
+
+[listing]
+----
+C3111E67::> storage aggregate plex delete -aggregate aggr1 -plex plex1
+Warning: Deleting plex "plex1" of mirrored aggregate "aggr1" in a non-shared HA configuration will disable its synchronous mirror protection and disable
+         negotiated takeover of node "sti-rx2540-335a" when aggregate "aggr1" is online.
+Do you want to continue? {y|n}: y
+[Job 78] Job succeeded: DONE
+
+C3111E67::> storage aggregate mirror -aggregate aggr1
+Info: Disks would be added to aggregate "aggr1" on node "sti-rx2540-335a" in the following manner:
+      Second Plex
+        RAID Group rg0, 5 disks (advanced_zoned checksum, raid_dp)
+                                                            Usable Physical
+          Position   Disk                      Type           Size     Size
+          ---------- ------------------------- ---------- -------- --------
+          shared     NET-3.2                   SSD               -        -
+          shared     NET-3.3                   SSD               -        -
+          shared     NET-3.4                   SSD         208.4GB  208.4GB
+          shared     NET-3.5                   SSD         208.4GB  208.4GB
+          shared     NET-3.12                  SSD         208.4GB  208.4GB
+
+      Aggregate capacity available for volume use would be 526.1GB.
+      625.2GB would be used from capacity license.
+Do you want to continue? {y|n}: y
+
+C3111E67::> storage aggregate show-status -aggregate aggr1
+Owner Node: sti-rx2540-335a
+ Aggregate: aggr1 (online, raid_dp, mirrored) (advanced_zoned checksums)
+  Plex: /aggr1/plex0 (online, normal, active, pool0)
+   RAID Group /aggr1/plex0/rg0 (normal, advanced_zoned checksums)
+                                                              Usable Physical
+     Position Disk                        Pool Type     RPM     Size     Size Status
+     -------- --------------------------- ---- ----- ------ -------- -------- ----------
+     shared   NET-1.1                      0   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-1.2                      0   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-1.3                      0   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-1.10                     0   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-1.11                     0   SSD        -  205.1GB  447.1GB (normal)
+  Plex: /aggr1/plex3 (online, normal, active, pool1)
+   RAID Group /aggr1/plex3/rg0 (normal, advanced_zoned checksums)
+                                                              Usable Physical
+     Position Disk                        Pool Type     RPM     Size     Size Status
+     -------- --------------------------- ---- ----- ------ -------- -------- ----------
+     shared   NET-3.2                      1   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-3.3                      1   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-3.4                      1   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-3.5                      1   SSD        -  205.1GB  447.1GB (normal)
+     shared   NET-3.12                     1   SSD        -  205.1GB  447.1GB (normal)
+10 entries were displayed..
+----
+[NOTE]
+====
+1つまたは複数のドライブ障害をテストまたはシミュレートするには、 `storage disk fail -disk NET-x.y -immediate`指示。システムにスペアがある場合、アグリゲートは再構築を開始します。再構築のステータスはコマンドで確認できます `storage aggregate show`。ONTAP Deployを使用して、シミュレーションで故障したドライブを削除できます。 ONTAPはドライブを次のようにマークしていることに注意してください。 `Broken` 。ドライブは実際には壊れておらず、 ONTAP Deploy を使用して再度追加できます。Broken」ラベルを消去するには、 ONTAP Select CLI で次のコマンドを入力します。
+
+[listing]
+----
+set advanced
+disk unfail -disk NET-x.y -spare true
+disk show -broken
+----
+最後のコマンドの出力は空になるはずです。
+
+====
+
+
+== 仮想化NVRAM
+
+NetApp FASシステムは、従来、物理的なNVRAM PCIカードを搭載しています。このカードは、不揮発性フラッシュメモリを搭載した高性能カードで、書き込みパフォーマンスを大幅に向上させます。これは、 ONTAPがクライアントへの書き込みを即座に確認応答する機能を提供することで実現されます。また、変更されたデータブロックを低速なストレージメディアに戻す「デステージング」と呼ばれるプロセスをスケジュールすることもできます。
+
+コモディティシステムでは通常、このような機器は搭載されていません。そのため、 NVRAMカードの機能は仮想化され、 ONTAP Selectシステムブートディスク上のパーティションに配置されています。そのため、インスタンスのシステム仮想ディスクの配置は非常に重要です。

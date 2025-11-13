@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: task_cli_deploy_image_remove.html 
+keywords: administer, administering, cli, deploy, ontap select image, remove 
+summary: ONTAP Selectイメージが不要になったら、Deploy 管理ユーティリティのインスタンスから削除できます。 
+---
+= ONTAP SelectイメージをDeployから削除する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Selectイメージが不要になったら、Deploy 管理ユーティリティのインスタンスから削除できます。
+
+
+CAUTION: クラスタで使用されているONTAP Selectイメージは削除しないでください。
+
+.タスク概要
+現在クラスタで使用されていない、または将来のクラスタ展開で使用する予定のない古いONTAP Selectイメージを削除できます。
+
+.手順
+. 管理者 (admin) アカウントで SSH を使用して、デプロイ ユーティリティ CLI にSign in。
+. Deploy によって管理されているクラスタを表示し、使用中のONTAPイメージを記録します。
++
+[source, cli]
+----
+cluster show
+----
++
+それぞれのバージョン番号とハイパーバイザー プラットフォームに注意してください。
+
+. Bash シェルを起動します。
++
+[source, cli]
+----
+shell bash
+----
+. 利用可能なすべてのONTAP Selectイメージを表示します。
++
+[source, cli]
+----
+ls -lh /opt/netapp/images
+----
+. 必要に応じて、ハイパーバイザー ホストからONTAP Selectイメージを削除します。
++
+[role="tabbed-block"]
+====
+.ESXiの例
+--
+[source, asciidoc]
+----
+rm -r /opt/netapp/images/DataONTAPv-9.3RC1-vidconsole-esx.ova
+----
+--
+.KVMの例
+--
+[source, asciidoc]
+----
+rm -r /opt/netapp/images/DataONTAPv-9.3RC1-serialconsole-kvm.raw.tar
+----
+--
+====
+

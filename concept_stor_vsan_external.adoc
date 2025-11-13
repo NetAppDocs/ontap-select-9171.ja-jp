@@ -1,0 +1,92 @@
+---
+sidebar: sidebar 
+permalink: concept_stor_vsan_external.html 
+keywords: ontap select, vsan and external array configurations, vnas architecture 
+summary: '仮想 NAS (vNAS) の展開では、vSAN、一部の HCI 製品、 NetApp HCIテクノロジー、および外部アレイ タイプのデータストア上のONTAP Selectクラスターがサポートされます。これらの構成の基盤となるインフラストラクチャは、データストアの耐障害性を実現します。' 
+---
+= ONTAP Select vSANおよび外部アレイ構成
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+仮想 NAS (vNAS) の展開では、仮想 SAN (vSAN)、一部の HCI 製品、および外部アレイ タイプのデータストア上のONTAP Selectクラスターがサポートされます。これらの構成の基盤となるインフラストラクチャは、データストアの耐障害性を実現します。
+
+最小要件は、使用しているハイパーバイザー (サポートされている Linux ホスト上の VMware ESXi または KVM) が基盤となる構成をサポートしていることです。ハイパーバイザーが ESXi の場合、それぞれの VMware HCL にリストされている必要があります。
+
+
+
+== vNASアーキテクチャ
+
+vNAS という命名法は、DAS を使用しないすべてのセットアップで使用されます。マルチノードONTAP Selectクラスタの場合、これには、同じ HA ペア内の 2 つのONTAP Selectノードが単一のデータストア（vSAN データストアを含む）を共有するアーキテクチャが含まれます。ノードは、同じ共有外部アレイの別のデータストアにインストールすることもできます。これにより、アレイ側のストレージ効率によって、 ONTAP Select HA ペア全体のフットプリントを削減できます。ONTAPONTAP Select vNAS ソリューションのアーキテクチャは、ローカル RAID コントローラを備えた DAS 上のONTAP Selectのアーキテクチャと非常によく似ています。つまり、各ONTAP Selectノードは、HA パートナーのデータのコピーを保持し続けます。ONTAPONTAP効率ポリシーはノードを対象としています。したがって、アレイ側のストレージ効率は、両方のONTAP Selectノードのデータセット全体に適用できる可能性があるため、推奨されます
+
+HAペア内の各ONTAP Selectノードが個別の外部アレイを使用することも可能で、これはONTAP Select Metrocluster SDSを外部ストレージと併用する場合によく使用されます。
+
+各ONTAP Selectノードに個別の外部アレイを使用する場合、2 つのアレイがONTAP Select VM に同様のパフォーマンス特性を提供することが非常に重要です。
+
+
+
+=== vNAS アーキテクチャとハードウェア RAID コントローラを備えたローカル DAS の比較
+
+vNAS アーキテクチャは、論理的には DAS と RAID コントローラを備えたサーバのアーキテクチャに最も類似しています。どちらの場合も、 ONTAP Select はデータストア領域を消費します。このデータストア領域は VMDK に分割され、これらの VMDK が従来のONTAPデータアグリゲートを形成します。ONTAPONTAPは、cluster -create および storage-add 操作中に、VMDK が適切にサイズ設定され、適切なプレックス（HA ペアの場合）に割り当てられていることを確認します。
+
+vNASとRAIDコントローラ搭載のDASには、2つの大きな違いがあります。最も顕著な違いは、vNASはRAIDコントローラを必要としないことです。vNASは、基盤となる外部アレイが、RAIDコントローラ搭載のDASが提供するデータの永続性と復元力を提供することを前提としています。2つ目の、そしてより微妙な違いは、 NVRAMのパフォーマンスに関するものです。
+
+
+
+== vNAS NVRAM
+
+ONTAP Select NVRAMは VMDK です。つまり、 ONTAP Select は、ブロック アドレス指定可能なデバイス (VMDK) 上でバイト アドレス指定可能な空間 (従来のNVRAM) をエミュレートします。しかし、 NVRAMのパフォーマンスはONTAP Selectノード全体のパフォーマンスにとって極めて重要です。
+
+ハードウェア RAID コントローラを備えた DAS セットアップの場合、 NVRAM VMDK へのすべての書き込みは最初に RAID コントローラ キャッシュでホストされるため、ハードウェア RAID コントローラ キャッシュはNVRAMキャッシュとして機能します。
+
+VNASアーキテクチャの場合、 ONTAP Deployは、Single Instance Data Logging（SIDL）と呼ばれるブート引数を使用してONTAP Selectノードを自動的に設定します。このブート引数が存在する場合、 ONTAP SelectはNVRAMをバイパスし、データペイロードをデータアグリゲートに直接書き込みます。NVRAMは、WRITE操作によって変更されたブロックのアドレスを記録するためにのみ使用されます。この機能の利点は、 NVRAMへの1回目の書き込みと、 NVRAMのデステージ時の2回目の書き込みという、二重書き込みを回避できることです。RAIDコントローラキャッシュへのローカル書き込みによる追加レイテンシはごくわずかであるため、この機能はvNASでのみ有効です。
+
+SIDL機能は、すべてのONTAP Selectストレージ効率機能と互換性がありません。SIDL機能は、次のコマンドを使用してアグリゲートレベルで無効にできます。
+
+[listing]
+----
+storage aggregate modify -aggregate aggr-name -single-instance-data-logging off
+----
+SIDL機能が無効になっていると、書き込みパフォーマンスに影響が出ることに注意してください。アグリゲート内のすべてのボリュームのストレージ効率ポリシーをすべて無効にした後、SIDL機能を再度有効にすることができます。
+
+[listing]
+----
+volume efficiency stop -all true -vserver * -volume * (all volumes in the affected aggregate)
+----
+
+
+== ESXi 上で vNAS を使用する場合にONTAP Selectノードを共存させる
+
+ONTAP Select は、共有ストレージ上のマルチノードONTAP Selectクラスタをサポートします。ONTAPONTAPでは、同じ ESX ホスト上に複数のONTAP Selectノードを設定できます。ただし、これらのノードが同じクラスタに属していない場合に限ります。この設定は VNAS 環境（共有データストア）にのみ有効です。DASストレージを使用する場合、ホストごとに複数のONTAP Selectインスタンスを設定することはできません。これらのインスタンスは同じハードウェア RAID コントローラを競合するためです。
+
+ONTAP Deployは、マルチノードVNASクラスタの初期導入時に、同じクラスタから複数のONTAP Selectインスタンスが同じホストに配置されないようにします。次の図は、2 つのホスト上で交差する 2 つの 4 ノード クラスターの正しい展開例を示しています。
+
+*マルチノードVNASクラスタの初期展開*
+
+image:ST_14.jpg["マルチノードVNASクラスタの初期展開"]
+
+導入後、 ONTAP Selectノードはホスト間で移行される可能性があります。これにより、同じクラスタ内の2つ以上のONTAP Selectノードが同じ基盤ホストを共有する、最適ではないサポート対象外の構成が発生する可能性があります。NetAppは、VMの非アフィニティ ルールを手動で作成し、VMwareが、同じHAペアのノードだけでなく、同じクラスタのノード間での物理的な分離を自動的に管理するようにすることを推奨します。
+
+
+NOTE: アンチアフィニティ ルールでは、ESX クラスタで DRS が有効になっている必要があります。
+
+ONTAP Select VMのアンチアフィニティルールを作成する方法については、次の例を参照してください。ONTAPONTAP Selectクラスタに複数のHAペアが含まれている場合は、クラスタ内のすべてのノードをこのルールに含める必要があります。
+
+image:ST_15.jpg["VM/ホストルール"]
+
+image:ST_16.jpg["VM/ホストルールの編集"]
+
+次のいずれかの理由により、同じONTAP Select ONTAP Selectノードが同じ ESX ホスト上に存在する可能性があります。
+
+* VMware vSphere ライセンスの制限により、または DRS が有効になっていない場合、DRS は存在しません。
+* VMware HA 操作または管理者が開始した VM 移行が優先されるため、DRS アンチアフィニティ ルールはバイパスされます。
+
+
+ONTAP DeployはONTAP Select VMの場所をプロアクティブに監視しません。ただし、クラスタ更新操作を実行すると、このサポートされていない構成がONTAP Deployログに反映されます。
+
+image:ST_17.PNG["ONTAP Deploy ログ"]

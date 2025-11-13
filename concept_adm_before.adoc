@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: concept_adm_before.html 
+keywords: administer, administering, web, before you begin 
+summary: ONTAP Selectクラスタを作成したら、さまざまな管理タスクを実行して導入をサポートできます。ただし、注意すべき一般的な考慮事項がいくつかあります。 
+---
+= ONTAP Selectの管理を始める前に
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Selectクラスタを作成したら、さまざまな管理タスクを実行して導入をサポートできます。ただし、注意すべき一般的な考慮事項がいくつかあります。
+
+一般に、デプロイ Web インターフェイスを使用して実行できる手順は、3 つのカテゴリのいずれかに分類されます。
+
+.ONTAP Selectクラスタを導入する
+単一ノードまたは複数ノードのクラスターを展開できます。見るlink:task_deploy_cluster.html["ONTAP Selectクラスタを導入する"]詳細についてはこちらをご覧ください。
+
+.既存のONTAP Selectクラスタで手順を実行する
+管理手順は、「セキュリティ」や「クラスター」などのさまざまなカテゴリに分類されています。
+
+.デプロイユーティリティで手順を実行する
+Deploy に固有の手順がいくつかあります (管理者のパスワードの変更など)。
+
+
+
+== ONTAP Selectの管理
+
+ONTAP Selectのサポートには、さまざまな管理手順が用意されています。さらに、Deploy管理ユーティリティ固有の手順もあります。これらの手順の中で最も重要なものを以下に示します。通常、すべての手順はDeploy Webユーザインターフェイスを使用します。
+
+
+NOTE: また、link:https://docs.netapp.com/us-en/ontap-select/task_cli_signing_in.html["コマンドラインインターフェースを使用する"] ONTAP Select を管理します。
+
+
+
+== 追加のONTAP構成を実行する
+
+ONTAP Selectクラスタを導入したら、ハードウェアベースのONTAPシステムと同様に、クラスタを設定および管理できます。たとえば、 ONTAP System ManagerまたはONTAP CLIを使用してONTAP Selectクラスタを設定できます。
+
+.NetAppクライアント ソフトウェア
+サポート対象である次のNetAppクライアント ソフトウェアを使用してONTAP Selectに接続できます。
+
+* ONTAP System Manager
+* Active IQ Unified Manager
+* OnCommand Insight
+* OnCommand Workflow Automation
+* SnapCenter
+* Virtual Storage Console for VMware vSphere
+
+
+サポートされているクライアントソフトウェアのバージョンを確認するには、link:https://mysupport.netapp.com/matrix/["Interoperability Matrix Tool"^] 。ONTAPバージョンがONTAP Selectでもサポートされます。
+
+
+NOTE: SnapCenterおよび関連プラグインを使用するには、サーバベースのライセンスが必要です。SnapCenterSnapCenterインのストレージシステムライセンスは、現在ONTAP Selectではサポートされていません。
+
+リストに含まれていないその他のNetAppクライアント ソフトウェアは、ONTAP Selectではサポートされません。
+
+.可能な設定オプション
+クラスターを構成するときに使用できるオプションはいくつかあり、次のとおりです。
+
+* ネットワーク構成の作成
+* 集計のレイアウト
+* データストレージVM（SVM）の作成
+
+
+.ストレージ容量付きのライセンスを購入
+ONTAP Selectクラスタの導入の一環としてストレージ容量を含むライセンス ファイルをインストールしない場合は、購入したライセンスで実行されているクラスタの猶予期間が終了する前に、ライセンス ファイルを取得してインストールする必要があります。
+
+.ミラーリングされたアグリゲート
+Deploy管理ユーティリティは、各ONTAP Selectノードに、使用可能なデータストアスペース（Pool0やPool1など）からデータスペアディスクを作成します。マルチノードクラスタでデータの高可用性を実現するには、これらのスペアを使用してミラーリングされたアグリゲートを作成する必要があります。
+
+
+NOTE: 高可用性テイクオーバーは、データアグリゲートがミラーリングされたアグリゲートとして構成されている場合にのみサポートされます。

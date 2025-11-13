@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: task_api_understanding_call.html 
+keywords: rest api, deploy rest api, rest, understanding, executing 
+summary: すべてのAPI呼び出しの詳細は、 ONTAP Select DeployのオンラインドキュメントWebページに共通の形式で文書化され、表示されます。1つのAPI呼び出しを理解することで、すべてのAPI呼び出しの詳細にアクセスし、解釈することができます。 
+---
+= ONTAP Select Deploy API呼び出しを理解して実行する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+すべてのAPI呼び出しの詳細は、 ONTAP Select DeployのオンラインドキュメントWebページに共通の形式で文書化され、表示されます。1つのAPI呼び出しを理解することで、すべてのAPI呼び出しの詳細にアクセスし、解釈することができます。
+
+.開始する前に
+ONTAP Select DeployのオンラインドキュメントWebページにサインインしている必要があります。また、クラスタ作成時にONTAP Selectクラスタに割り当てられた一意の識別子が必要です。
+
+.タスク概要
+ONTAP Selectクラスタの構成情報は、一意の識別子を使用して取得できます。この例では、低コストと分類されたすべてのフィールドが返されます。ただし、ベストプラクティスとして、必要なフィールドのみを要求することをお勧めします。
+
+.手順
+. メインページで一番下までスクロールし、「クラスター」をクリックします。
+. *GET /clusters/{cluster_id}* をクリックすると、 ONTAP Selectクラスタに関する情報を返すために使用される API 呼び出しの詳細が表示されます。
+

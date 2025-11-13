@@ -1,0 +1,138 @@
+---
+sidebar: sidebar 
+permalink: reference_plan_ots_hardware.html 
+keywords: plan, planning, vmware, hardware, hardware requirements 
+summary: VMware 環境に関連して、考慮する必要があるハードウェア要件と計画上の問題がいくつかあります。 
+---
+= ONTAP Select VMwareハイパーバイザーとハードウェアの考慮事項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+VMware 環境に関連して、考慮する必要があるハードウェア要件と計画上の問題がいくつかあります。
+
+
+
+== ハイパーバイザーの要件
+
+ONTAP Select が実行されるハイパーバイザーに関連する要件がいくつかあります。
+
+
+NOTE: 確認すべきはlink:reference_release_notes.html["ONTAP Selectリリースノート"]追加の既知の制限事項や制約事項については、こちらをご覧ください。
+
+
+
+=== VMwareライセンス
+
+ONTAP Selectクラスタを導入するには、 ONTAP Selectが実行されるハイパーバイザーホスト用の有効なVMware vSphereライセンスが必要です。導入環境に適したライセンスを使用してください。
+
+
+
+=== ソフトウェアの互換性
+
+ONTAP Select は、 KVM および ESXi ハイパーバイザーに導入できます。
+
+[role="tabbed-block"]
+====
+.KVM
+--
+ONTAP Select は、次の KVM ハイパーバイザー バージョンをサポートしています。
+
+* Red Hat Enterprise Linux 9.6、9.5、9.4、9.2、9.1、9.0、8.8、8.7、および 8.6 上の KVM
+* Rocky Linux 9.6、9.5、9.4、9.3、9.2、9.1、9.0、8.9、8.8、8.7、および 8.6 上の KVM
+
+
+--
+.ESXi
+--
+ONTAP Select は、次の ESXi ハイパーバイザー バージョンをサポートしています。
+
+* VMware ESXi 9.0
+* VMware ESXi 8.0 U3
+* VMware ESXi 8.0 U2
+* VMware ESXi 8.0 U1 (ビルド 21495797)
+* VMware ESXi 8.0 GA (ビルド 20513097)
+* VMware ESXi 7.0 GA (ビルド 15843807 以上) (7.0 U3C、U2、U1 を含む)
+
+
+
+NOTE: NetApp は、VMware も同じバージョンを引き続きサポートしている限り、特定されたバージョンの ESXi でONTAP Select をサポートします。
+
+
+NOTE: ESXi 6.5 GAおよびESXi 6.7 GAは提供終了となりました。これらのバージョンのONTAP Selectクラスタがある場合は、以下の手順に従ってサポートされているバージョンにアップグレードする必要があります。 https://mysupport.netapp.com/matrix["Interoperability Matrix Tool（IMT）"^] 。
+
+--
+====
+
+
+=== VMware vCenter およびスタンドアロン ESXi ホスト
+
+ESXiハイパーバイザーホストがvCenter Serverによって管理されている場合は、vCenterの認証情報を使用して、ホストをDeploy管理ユーティリティに登録する必要があります。ESXiの認証情報を使用して、ホストをスタンドアロンホストとして登録することはできません。
+
+
+
+== コアハードウェア要件
+
+ONTAP Selectを導入する物理ハイパーバイザーホストは、いくつかのハードウェア要件を満たしている必要があります。ハイパーバイザーホストには、最小ハードウェア要件を満たしていれば、任意のプラットフォームを選択できます。サポートされているハードウェアプラットフォームは、 Cisco、Dell、HP、Fujitsu、Lenovo、Supermicroの各ベンダーから提供されています。
+
+
+NOTE: ONTAP Select 9.9.1 以降では、Intel Xeon Sandy Bridge 以降に基づく CPU モデルのみがサポートされます。
+
+参照 https://mysupport.netapp.com/matrix["相互運用性マトリックスツール、window=_blank"]詳細についてはこちらをご覧ください。
+
+
+
+=== 基本的なハードウェア要件
+
+ノードインスタンスタイプやライセンス提供に関係なく、すべてのプラットフォームに適用される共通のハードウェア要件がいくつかあります。
+
+.プロセッサ
+サポートされているマイクロプロセッサには、サーバー向けIntel Xeonプロセッサが含まれます。link:https://www.intel.com/content/www/us/en/products/processors/xeon/view-all.html?Processor+Type=1003["Intel Xeon プロセッサー、window=_blank"]詳細についてはこちらをご覧ください。
+
+
+NOTE: Advanced Micro Devices（AMD）プロセッサはONTAP Selectではサポートされていません。
+
+.イーサネット構成
+クラスターのサイズに基づいて、いくつかのイーサネット構成がサポートされます。
+
+[cols="2,3,3"]
+|===
+| クラスターサイズ | 最小要件 | 推奨要件 
+
+
+| 単一ノードクラスター | 2 x 1GbE | 2 x 10GbE 
+
+
+| 2ノードクラスタまたはMetroCluster SDS | 4 x 1GbE または 1 x 10GbE | 2 x 10GbE 
+
+
+| 4、6、または8ノードのクラスター | 2 x 10GbE | 4 x 10GbE または 2 x 25/40GbE 
+|===
+
+
+=== インスタンスタイプに基づく追加のハードウェア要件
+
+ノードインスタンスタイプに基づいて、いくつかの追加のハードウェア要件があります。
+
+参照link:concept_lic_platforms.html["プラットフォームライセンスの提供内容を理解する"]詳細についてはこちらをご覧ください。
+
+[cols="a1,a2,a2,a2"]
+|===
+| ノードサイズ | CPUコア | メモリ | 必要なプラットフォームライセンスの提供 
+
+
+| 小規模 | 6 個以上の物理コア（うち 4 個はONTAP Select用に予約） | 24GB以上、16GBはONTAP Select用に予約済み | スタンダード、プレミアム、プレミアムXL 
+
+
+| 中 | 10 個以上の物理コア（うち 8 個はONTAP Select用に予約） | 72GB以上、64GBはONTAP Select用に予約済み | プレミアムまたはプレミアムXL 
+
+
+| 大規模 | 18 個以上の物理コア（うち 16 個はONTAP Select用に予約） | 136GB以上、128GBはONTAP Select用に予約済み | プレミアムXL 
+|===
+
+NOTE: プラットフォーム ライセンスに基づいて追加のディスク要件があります。見るlink:reference_plan_ots_storage.html["ストレージとRAID"]詳細についてはこちらをご覧ください。

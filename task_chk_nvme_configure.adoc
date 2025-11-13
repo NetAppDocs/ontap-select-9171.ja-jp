@@ -1,0 +1,128 @@
+---
+sidebar: sidebar 
+permalink: task_chk_nvme_configure.html 
+keywords: ontap select, nvme storage, host preparation 
+summary: NVMe ドライブをソフトウェア RAID で使用する予定の場合は、ドライブを認識するようにホストを構成する必要があります。 
+---
+= NVMeドライブを使用するようにONTAP Selectホストを構成する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NVMe ドライブをソフトウェア RAID で使用する予定の場合は、ドライブを認識するように ESXi または KVM ホストを構成する必要があります。
+
+NVMeデバイスでVMDirectPath I/Oパススルーを使用することで、データ効率を最大化できます。この設定により、ドライブがONTAP Select仮想マシンに公開され、 ONTAPがデバイスに直接PCIアクセスできるようになります。
+
+
+
+== ステップ1: ホストを構成する
+
+ドライブを認識するように ESXi または KVM ホストを構成します。
+
+.開始する前に
+展開環境が次の最小要件を満たしていることを確認してください。
+
+* ESXホストの場合、サポートされているDeploy管理ユーティリティを備えたONTAP Select
+* KVMホストの場合、サポートされているDeploy管理ユーティリティを備えたONTAP Select 9.17.1
+* プレミアムXLプラットフォームライセンスまたは90日間の評価ライセンス
+* ESXi または KVM ホストは、サポートされているハイパーバイザー バージョンを実行しています。
++
+[role="tabbed-block"]
+====
+.ESXi
+--
+ESXi は次のハイパーバイザー バージョンでサポートされています。
+
+** VMware ESXi 9.0
+** VMware ESXi 8.0 U3
+** VMware ESXi 8.0 U2
+** VMware ESXi 8.0 U1 (ビルド 21495797)
+** VMware ESXi 8.0 GA (ビルド 20513097)
+** VMware ESXi 7.0 GA（ビルド 15843807 以降）、7.0 U1、U2、U3C を含む
+
+
+--
+.KVM
+--
+KVM は次のハイパーバイザー バージョンでサポートされています。
+
+** Red Hat Enterprise Linux 9.6、9.5、9.4、9.2、9.1、9.0、8.8、8.7、および 8.6
+** Rocky Linux 9.6、9.5、9.4、9.3、9.2、9.1、9.0、8.9、8.8、8.7、および 8.6
+
+
+--
+====
+* 仕様1.0以降に準拠したNVMeデバイス
+
+
+フォローlink:kvm-host-configuration-and-preparation-checklist["ホスト準備チェックリスト"]、必要な情報を確認してくださいlink:reference_chk_deploy_req_info.html["デプロイユーティリティのインストール"]そしてlink:reference_chk_select_req_info.html["ONTAP Selectのインストール"]詳細についてはこちらをご覧ください。
+
+.タスク概要
+この手順は、新しいONTAP Selectクラスタを作成する前に実行する必要があります。既存のソフトウェアRAID NVMeクラスタに追加のNVMeドライブを設定する手順も実行できます。この場合、ドライブを設定した後、SSDドライブを追加する場合と同様に、Deployを使用してドライブを追加する必要があります。主な違いは、DeployがNVMeドライブを検出し、ノードを再起動することです。既存のクラスタにNVMeドライブを追加する場合は、再起動プロセスについて次の点に注意してください。
+
+* デプロイは再起動オーケストレーションを処理します。
+* HA テイクオーバーとギブバックは順番に実行されますが、アグリゲートの再同期には時間がかかる場合があります。
+* 単一ノード クラスターではダウンタイムが発生します。
+
+
+見るlink:concept_stor_capacity_inc.html["ストレージ容量を増やす"]追加情報については。
+
+.手順
+. I/O 仮想化のサポートを有効にするには、ホストの *BIOS 構成* メニューにアクセスします。
+. *Intel VT for Directed I/O (VT-d)* 設定を有効にします。
++
+image:nvme_01.png["ソケット構成"]
+
+. 一部のサーバーでは、*Intel Volume Management Device (Intel VMD)* がサポートされています。これを有効にすると、利用可能なNVMeデバイスがESXiまたはKVMハイパーバイザーから見えなくなります。続行する前に、このオプションを無効にしてください。
++
+image:nvme_07.png["ソケット構成、VMD"]
+
+. NVMe ドライブを仮想マシンへのパススルー用に構成します。
++
+.. vSphere で、ホストの *構成* ビューを開き、*ハードウェア: PCI デバイス* の下にある *編集* を選択します。
+.. ONTAP Selectに使用する NVMe ドライブを選択します。
++
+次の出力例は、ESXi ホストで使用可能なドライブを示しています。
+
++
+image:nvme_02.png["PCIデバイスの可用性を編集する"]
+
++
+
+NOTE: ONTAP Select VMシステムディスクと仮想NVRAMをホストするには、NVMeデバイスでバックアップされたVMFSデータストアが必要です。他のNVMeドライブをPCIパススルー用に設定する際には、この目的のために少なくとも1つのNVMeドライブを確保しておいてください。
+
+.. 「OK」を選択します。選択したデバイスは「利用可能（保留中）」と表示されます。
+
+
+. *このホストを再起動*を選択します。
++
+次の出力例は、ESXi ホストの場合です。
+
++
+image:nvme_03.png["このホストを再起動"]
+
+
+
+
+
+== ステップ2: ONTAP Select Deployユーティリティをインストールする
+
+ホストの準備が完了したら、 ONTAP Select Deployユーティリティをインストールできます。Deployは、新しく準備したホスト上にONTAP Selectストレージクラスタを作成する手順をガイドします。このプロセス中に、Deployはパススルー用に設定されたNVMeドライブの存在を検出し、 ONTAPデータディスクとして使用するために自動的に選択します。必要に応じて、デフォルトの選択を調整できます。
+
+
+NOTE: 各ONTAP Selectノードでは最大 14 個の NVMe デバイスがサポートされます。
+
+次の出力例は、ESXi ホストの場合です。
+
+image:nvme_04.png["ONTAP Selectデプロイクラスタ"]
+
+クラスタの導入が完了すると、 ONTAP System Managerを使用してベストプラクティスに従ってストレージをプロビジョニングできます。ONTAPONTAP は、NVMe ストレージを最大限に活用するフラッシュ最適化ストレージ効率機能を自動的に有効にします。
+
+image:nvme_05.png["ローカルストレージの準備"]
+
+image:nvme_06.png["ONTAP System Manager"]

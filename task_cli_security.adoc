@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: task_cli_security.html 
+keywords: administer, administering, cli, security 
+summary: ONTAP Select の導入を保護する一環として実行できる関連タスクがいくつかあります。 
+---
+= ONTAP Selectの導入をセキュリティで保護する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Select の導入を保護する一環として実行できる関連タスクがいくつかあります。
+
+
+
+= デプロイ管理者のパスワードを変更する
+
+必要に応じて、コマンド ライン インターフェイスを使用して、Deploy 仮想マシン管理者アカウントのパスワードを変更できます。
+
+.手順
+. 管理者アカウントを使用して、デプロイ ユーティリティ CLI にSign in。
+. パスワードを変更します:
+`password modify`
+. 環境に応じて、すべてのプロンプトに応答します。
+

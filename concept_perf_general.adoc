@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: concept_perf_general.html 
+keywords: ontap select, performance 
+summary: ONTAP Selectクラスタのパフォーマンスは、ハードウェア構成によって異なります。 
+---
+= ONTAP Selectパフォーマンスの概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+ONTAP Selectクラスタのパフォーマンスは、基盤となるハードウェアと構成の特性によって大きく異なります。特定のONTAP Selectインスタンスのパフォーマンスを最も左右する要因は、ハードウェア構成です。以下に、特定のONTAP Selectインスタンスのパフォーマンスに影響を与える要因をいくつか示します。
+
+* *コア周波数*。一般的には、高い周波数が望ましいです。
+* *シングルソケットとマルチソケット*ONTAP Select はマルチソケット機能を使用しませんが、マルチソケット構成をサポートするためのハイパーバイザーのオーバーヘッドにより、全体的なパフォーマンスに多少の偏差が生じます。
+* *RAIDカードの構成と関連するハイパーバイザードライバー*。ハイパーバイザーが提供するデフォルトのドライバーは、ハードウェアベンダーのドライバーに置き換える必要がある場合があります。
+* *RAID グループ内のドライブ タイプとドライブ数*。
+* *ハイパーバイザーのバージョンとパッチ レベル*。
+
