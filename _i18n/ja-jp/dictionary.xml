@@ -3898,45 +3898,50 @@
   <block id="02d99372e9e1eb54a9dddd0b08891357" category="list-text">Red Hat Enterprise Linux (RHEL) 10.1、10.0、9.7、9.6、9.5、9.4、9.2、9.1、9.0、8.8、8.7、および8.6</block>
   <block id="f1200e5ffcff7a7cc8b8ea25410cc78a" category="list-text">Rocky Linux 10.1、10.0、9.7、9.6、9.5、9.4、9.3、9.2、9.1、9.0、8.9、8.8、8.7、および8.6</block>
   <block id="d65f97fb1a167a35c6951233420ba74d" category="list-text">Red Hat Enterprise Linux (RHEL) 64-bit 10.1、10.0、9.7、9.6、9.5、9.4、9.3、9.2、9.1、9.0、8.8、8.7、および 8.6</block>
-  <block id="e9acce0d3652d40c91f9bd7e814291c0" category="inline-link-macro">NetApp Support Site ダウンロード</block>
-  <block id="17838336399b2e69627cea0614c17f30" category="list-text"><block ref="8e92c016cc209b5ea10cc71b5bfe5577" category="inline-link-macro-rx"></block>ページにアクセスします。</block>
-  <block id="102500ba079e1f102bac567290d3e053" category="list-text">下にスクロールして、* ONTAP Select Image *を選択します。</block>
-  <block id="1ccd2fe0ab425cd480daec44d7c332ba" category="list-text">インストールイメージの目的のリリースを選択します。</block>
-  <block id="b0ccaa273cbf1ac7308b75b9c7fd6d4e" category="list-text">適切な*ONTAP Select Image Upgrade*パッケージを選択してダウンロードしてください。必要に応じてすべてのプロンプトに応答します。</block>
-  <block id="1a8d41e65cef4d345c50298a70f79734" category="inline-link-macro">リリース ノート</block>
-  <block id="b7a85c17919c6d783689e1a6530de3d7" category="paragraph">ONTAP Selectノードをアップグレードする前に、<block ref="3dda619db99e14ba32fb3b3389030b7d" category="inline-link-macro-rx"></block>で追加情報と必要な手順を確認してください。</block>
-  <block id="ab0efa1679a96e82121715180bb36a1d" category="summary">ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加します。インストール後、ONTAP Selectクラスタの導入時に使用できます。</block>
-  <block id="91dd9283705750f9fe7e837b0a40349f" category="paragraph">ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加します。イメージをインストールしたら、ONTAP Select クラスタの導入時に使用できます。</block>
-  <block id="c887723161d2b70aba693fc5b80ea33b" category="list-text">適切な*ONTAP Select Image Install*パッケージを選択してダウンロードしてください。必要に応じてすべてのプロンプトに応答します。</block>
-  <block id="04574480371a2b80422d880e51839d84" category="paragraph">ローカルワークステーションにインストールイメージファイルがあることを確認します。Deploy管理者ユーザーアカウントのパスワードも必要です。</block>
-  <block id="a935f72e89684cc4e1e44be3fa93301b" category="doc">ステップ1：アップグレードパッケージをダウンロードする</block>
-  <block id="4138c5c743e6f7a38cc7aa46349fddb8" category="paragraph">サイドバー: サイドバー パーマリンク: task_cli_upgrade_deploy.html キーワード: 管理、管理、cli、デプロイ、アップグレード デプロイの概要：コマンド ライン インターフェイスを使用して、既存の Deploy ユーティリティ仮想マシンをインプレースでアップグレードできます。--- = ONTAP Select Deploy インスタンスをアップグレードします :hardbreaks: :nofooter: :icons: font :linkattrs: :imagesdir: ./media/</block>
-  <block id="71b6b56cdf9a8f06858b086466ade95e" category="paragraph">ONTAP Select Deploy ユーティリティ CLI を使用して、既存の ONTAP Select Deploy ユーティリティ仮想マシンをインプレースでアップグレードします。</block>
-  <block id="893d0216a6847b8a50f3efc04d175542" category="paragraph">アップグレード中に ONTAP Select Deploy が他のタスクの実行に使用されていないことを確認します。ONTAP Select Deploy ユーティリティのアップグレードに関する情報と制限事項については、<block ref="3dda619db99e14ba32fb3b3389030b7d" category="inline-link-macro-rx"></block>を参照してください。</block>
-  <block id="bb68cf2408900213fd35084701d5c32c" category="paragraph">ONTAP Select Deploy 9.17.1または9.16.1からONTAP Select Deploy 9.18.1に直接アップグレードできます。ONTAP Select Deploy 9.15.1以前からアップグレードする場合は、お使いのONTAP Selectバージョンのリリースノートを確認してください。</block>
-  <block id="9c7dbffc228f5e20cfc38dd2e9d52183" category="paragraph">アップグレードプロセスを開始するには、NetApp Support SiteからONTAP Select Deployアップグレードファイルをダウンロードします。アップグレードパッケージは、単一の圧縮ファイルとしてフォーマットされます。</block>
-  <block id="c7de263deca2f546c4c7b9417bbb6aec" category="list-text">下にスクロールして*ONTAP Select Deploy*を選択してください。</block>
-  <block id="224ba05e3cb699bfc71537bae00db024" category="list-text">希望する ONTAP Select バージョンを選択してください。</block>
-  <block id="edef4f12cb19840bbbb69b8757b99015" category="list-text">適切な*ONTAP Select Deploy Upgrade*パッケージを選択してダウンロードします。必要に応じてすべてのプロンプトに応答します。</block>
-  <block id="916c12b3fbccb1ff32e8a4776708798e" category="section-title">ステップ1：仮想マシンイメージをダウンロードする</block>
-  <block id="b6754a68a857ab2b2389816249373a57" category="paragraph">NetApp サポートサイトから ONTAP Select パッケージをダウンロードします。</block>
-  <block id="1ace48b65c22215b19f774b3df5f35bc" category="paragraph">ONTAP Select Deploy管理ユーティリティは、Open Virtualization Format（OVF）標準に基づく仮想マシン（VM）としてパッケージ化されています。単一の圧縮ファイルには、ESXiホスト用のサフィックス<block ref="586ba478b7ebec665f3df120799b6c2e" prefix=" " category="inline-code"></block>とKVMホスト用のサフィックス<block ref="fe0b8e90d35ee4c0d89c53587e2d402e" prefix=" " category="inline-code"></block>が付いています。VMは、ONTAP Selectノード用のDeployサーバーとインストールイメージを提供します。</block>
-  <block id="1b889c4574d56e52bb5c7740f68139d2" category="list-text">適切な*ONTAP Select Deploy Install*パッケージを選択してダウンロードしてください。必要に応じてすべてのプロンプトに応答します。</block>
-  <block id="0230ee7e6071858ebc377c057e5e603e" category="section-title">ステップ2：ONTAP Select Deploy OVA署名を確認する</block>
-  <block id="9e0015dd89b19bd3443ad4f4a14527ab" category="paragraph">インストール パッケージをインストールする前に、ONTAP Select Open Virtualization Appliance（OVA）署名を確認します。</block>
-  <block id="3f5028687bfdb0f40e4748a9cf9f5076" category="list-text">NetApp Support Site の製品ダウンロードページから次のファイルを入手します。</block>
-  <block id="f754a351095ccdb252bb15b2152c09f3" category="list-text">署名を検証します：</block>
-  <block id="35f9f1c9a9790bd3fc497db798819083" category="section-title">ステップ3：仮想マシンを展開する</block>
-  <block id="a84a05d08c99af325673887887ed8fdb" category="paragraph">OVF VM イメージを使用して ONTAP Select Deploy VM をインストールして起動します。インストール プロセスの一環として、DHCP または静的 IP 構成を使用するようにネットワーク インターフェイスを構成します。</block>
-  <block id="5029ec7f3dcb7c58660c1d47f8dce6c3" category="list-text">OVA ファイルを選択し、Deploy OVF Template ウィザードを完了します。ご使用の環境に適したオプションを選択してください。</block>
-  <block id="77b39f7b1e60aa5d2af3e45d47ff1adf" category="list-text">*コンソール*タブを選択して、ESXi ホストセットアップシェルにアクセスし、電源オンプロセスを監視します。</block>
-  <block id="b976538163f8bd7f20f37762f79adba6" category="list-text">静的構成を選択する場合は、必要なネットワーク構成情報をすべて指定します。</block>
-  <block id="7e5f2ca43da3004f8d3d7bae3edb7bae" category="section-title">ステップ4：Deploy WebインターフェースにSign in</block>
-  <block id="896f4c4fdd4e61c33a930415e20d88d3" category="paragraph">Web ユーザー インターフェイスに Sign in して、デプロイ ユーティリティが使用可能であることを確認し、初期構成を実行します。</block>
-  <block id="a88f396cb1d0d25e4d7b5bc9e25d3617" category="paragraph-title">次の手順：</block>
-  <block id="4452a56e6eb6220413b5f5ed2b39c2eb" category="paragraph"><block ref="4452a56e6eb6220413b5f5ed2b39c2eb" category="inline-link-macro-rx"></block></block>
-  <block id="186a0749125d9c043615b75ece89e1b9" category="inline-link-macro">SSHを使用してDeployにSign inする方法を学ぶ</block>
-  <block id="3127e7fd2160f6fce263d627cbcb5a4d" category="list-text"><block ref="3127e7fd2160f6fce263d627cbcb5a4d" category="inline-link-macro-rx"></block></block>
-  <block id="53e65bd37d1e95a079cd2ec376ccf900" category="inline-link-macro">ONTAP Selectクラスタの90日間評価インスタンスの導入について学ぶ</block>
-  <block id="f5f0f7b9b906ffe1f1af3b3d9bc2a475" category="list-text"><block ref="f5f0f7b9b906ffe1f1af3b3d9bc2a475" category="inline-link-macro-rx"></block></block>
+  <block id="e105a9c27bf2d9ddd5067b411d434cd6" category="list-text">NetApp Support Siteのダウンロードページに移動します。</block>
+  <block id="68f9ff06ec00760816a8852081d652a9" category="inline-link">NetApp サポートダウンロード</block>
+  <block id="332fd48f854bf692aea555e091e1b3cc" category="paragraph"><block ref="332fd48f854bf692aea555e091e1b3cc" category="inline-link-rx"></block></block>
+  <block id="eea1cec828c419810e082867558ec301" category="list-text">*ONTAP Select Node Upgrade* をクリックします。</block>
+  <block id="a864f71b844955db4e27746202712f1b" category="list-text">必要に応じてすべてのプロンプトに応答し、適切なアップグレードイメージを選択してダウンロードします。</block>
+  <block id="2e17a67d810d937603511ac8eb9044c5" category="paragraph">ONTAP Selectノードをアップグレードする前に、リリースノートで追加情報と必要な手順を確認してください。</block>
+  <block id="6738f098cd2bba79a1109b07a6b3a4e3" category="summary">ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加できます。イメージをインストールしたら、 ONTAP Select クラスタの導入時に使用できます。</block>
+  <block id="42cd2a8efe7c9aac811d923637a0f193" category="list-text">Webブラウザを使用してNetApp Support Siteにアクセスし、*Support Quick Links*を選択します。</block>
+  <block id="6168f6eb3f1b81ec759f515fdd7bab98" category="list-text">*Top Tasks* の下にある *Download Software* を選択し、サイトに Sign in します。</block>
+  <block id="84791eb50904d5d426f95112ce50d397" category="list-text">*製品を探す*を選択します。</block>
+  <block id="a896447aac9deddba0f8b7bc142c079f" category="list-text">下にスクロールして*ONTAP Select*を選択してください。</block>
+  <block id="676522edf33055c4e8da85feed945dc5" category="list-text">*Other Available Select Software* で、*Deploy Upgrade、Node Upgrade、Image Install* を選択します。</block>
+  <block id="a8601f098fd28588686f1b5ce31da2a1" category="list-text">アップグレード パッケージの目的のリリースを選択します。</block>
+  <block id="9bf3ac5f4cb6341117598df735958bdf" category="list-text">エンドユーザーライセンス契約（EULA）を確認し、*Accept &amp; Continue*をクリックします。</block>
+  <block id="def8f653fff47640d3bcce40244c6331" category="list-text">適切なパッケージを選択してダウンロードし、環境に応じて必要なすべてのプロンプトに応答します。</block>
+  <block id="2a5d9f3f5564baf37e1d1a8cf1a3b68c" category="paragraph">ローカル ワークステーションにインストール イメージ ファイルを用意しておく必要があります。Deploy 管理者ユーザー アカウントのパスワードも必要です。</block>
+  <block id="c9732055d20960435002cec722852b3e" category="summary">コマンドラインインターフェイスを使用して、既存の Deploy ユーティリティ仮想マシンをインプレースでアップグレードできます。</block>
+  <block id="6a72bf96d9b994589542338ffd146590" category="doc">ONTAP Select Deployインスタンスをアップグレードする</block>
+  <block id="aee852b160915b647628e7eef82ecf7e" category="paragraph">ONTAP Select Deploy ユーティリティ CLI を使用して、既存の ONTAP Select Deploy ユーティリティ仮想マシンをインプレースでアップグレードできます。</block>
+  <block id="37d4c938e6c31c7ec9166448ac3458f3" category="paragraph">アップグレード中は、ONTAP Select Deployを他のタスクの実行に使用しないでください。ONTAP Select Deployユーティリティのアップグレードに関する情報と制限事項については、最新のリリースノートを参照してください。</block>
+  <block id="35767fb08a64b94abf91d7c25ea1b1d5" category="paragraph">ONTAP Select Deploy 9.16.1または9.15.1からONTAP Select Deploy 9.17.1に直接アップグレードできます。ONTAP Select Deploy 9.14.1以前からアップグレードする場合は、お使いのONTAP Selectバージョンのリリースノートを確認してください。</block>
+  <block id="db1b7c6bff7b0da47260c4e758478bf5" category="section-title">ステップ1：パッケージをダウンロードする</block>
+  <block id="c81ba5c62604d6722d8975fb55e13972" category="paragraph">アップグレードプロセスを開始するには、<block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block>から適切なONTAP Select Deploy仮想マシンのアップグレードファイルをダウンロードします。アップグレードパッケージは、単一の圧縮ファイルとしてフォーマットされます。</block>
+  <block id="0f0e87daa63b5587a3d3f02aefb73403" category="list-text">Web ブラウザを使用して<block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block>にアクセスし、Downloads メニューから *Downloads* を選択します。</block>
+  <block id="dce12db5fd853ebf9ecc2b9677234aa6" category="list-text">下にスクロールして*ONTAP Select Deploy Upgrade*を選択してください。</block>
+  <block id="da691cb71c1f879ed7bf93a9a845601a" category="section-title">仮想マシンイメージをダウンロードする</block>
+  <block id="4457cc766e233dbf5bfec7006eded349" category="paragraph">ONTAP SelectパッケージはNetAppサポートサイトからダウンロードできます。</block>
+  <block id="53e646b7dd5ddb95bd47f8626f05f330" category="paragraph">ONTAP Select Deploy管理ユーティリティは、Open Virtualization Format（OVF）標準に基づく仮想マシン（VM）としてパッケージ化されています。単一の圧縮ファイルには、サフィックス<block ref="f81b21fb4e12a0e6917f955a9a305553" prefix=" " category="inline-code"></block>が付いています。VMは、DeployサーバーとONTAP Selectノードのインストールイメージを提供します。</block>
+  <block id="a8b083480f6b19e605e4aaa8bd3425f1" category="list-text">Web ブラウザを使用して<block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block>にアクセスし、サインインします。</block>
+  <block id="cc97556611cf17d7a90f16087052f93b" category="list-text">メニューから * ダウンロード * を選択し、ドロップダウンメニューから * ダウンロード * を選択します。</block>
+  <block id="ab0ffe542101d39137dce2c19869d545" category="list-text">ダウンロード ページの [すべての製品 A-Z] の下で、文字 *O* を選択します。</block>
+  <block id="49f3378bb78e3d9783ddf1d56b07097e" category="list-text">パッケージの目的のリリースを選択します。</block>
+  <block id="a0ce89b8db68d7f3e4fb721f6bf6c751" category="list-text">適切なパッケージを選択してダウンロードし、必要に応じてすべてのプロンプトに応答します。</block>
+  <block id="8435c401e57e043b0c57edfb0a00c774" category="section-title">ONTAP Select Deploy OVA署名を確認する</block>
+  <block id="ab07c13a31893a6c9ee2547e7b9df643" category="paragraph">ONTAP Select Open Virtualization Appliance（OVA）署名は、インストール パッケージをインストールする前に確認する必要があります。</block>
+  <block id="940949e444a7d7ca33644736f8b10bcd" category="list-text">NetApp Support Site の製品ダウンロードページから次のファイルを入手します。</block>
+  <block id="134cfba28fd247854afe7ce4d31767ad" category="list-text">次のコマンドで署名を検証します：</block>
+  <block id="0ba1987cb555e519f115071e917656fc" category="section-title">仮想マシンを導入する</block>
+  <block id="1eadabe4e39cf3ae5ce71caf6ddc8447" category="paragraph">OVF VM イメージを使用して ONTAP Select Deploy VM をインストールして起動する必要があります。インストールプロセスの一環として、DHCP または静的 IP 構成を使用するようにネットワークインターフェイスを構成します。</block>
+  <block id="3186b86d87a207cefd5620929256fbd0" category="list-text">OVA ファイルを選択し、環境に応じて適切なオプションを選択して、Deploy OVF Template ウィザードを完了します。</block>
+  <block id="1d7370ec51f294f5948f3cc2550b812a" category="list-text">*Console* タブをクリックして、ESXi ホスト セットアップ シェルにアクセスし、電源オン プロセスを監視します。</block>
+  <block id="25775c61c3281e6d412f48371102d8b3" category="section-title">Deploy Web インターフェイスに Sign in します</block>
+  <block id="887ee30caedf2bee91979565f5ddf01e" category="paragraph">Deploy ユーティリティが使用可能であることを確認して初期構成を実行するには、Web ユーザー インターフェイスに Sign in する必要があります。</block>
+  <block id="28258323eaa4732b0beafbc8b083a5ab" category="list-text">初めてサインインする場合で、vCenterに付属のウィザードを使用してDeployをインストールしていない場合は、プロンプトが表示されたら次の構成情報を入力します：</block>
+  <block id="0778e2d9c54386153e2e52bad4129abe" category="inline-link-macro">Sign inしてSSHを使用してデプロイする</block>
+  <block id="ccbbd15600c60abef8f9d734d84b4a4e" category="list-text"><block ref="ccbbd15600c60abef8f9d734d84b4a4e" category="inline-link-macro-rx"></block></block>
 </blocks>

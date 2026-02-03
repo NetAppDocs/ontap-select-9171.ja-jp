@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: task_cli_deploy_image_add.html 
 keywords: administer, administering, cli, deploy, ontap select image, add 
-summary: ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加します。インストール後、ONTAP Selectクラスタの導入時に使用できます。 
+summary: ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加できます。イメージをインストールしたら、 ONTAP Select クラスタの導入時に使用できます。 
 ---
 = ONTAP Selectイメージをデプロイに追加する
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: ONTAP Select イメージを Deploy 管理ユーティリティのイ�
 
 
 [role="lead"]
-ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加します。イメージをインストールしたら、ONTAP Select クラスタの導入時に使用できます。
+ONTAP Select イメージを Deploy 管理ユーティリティのインスタンスに追加できます。イメージをインストールしたら、 ONTAP Select クラスタの導入時に使用できます。
 
 .開始する前に
 新しいONTAP Selectイメージを Deploy に追加する前に、まず不要なイメージを削除する必要があります。
@@ -29,11 +29,14 @@ NOTE: Deployユーティリティのインスタンスに含まれている元�
 ONTAP SelectイメージをDeployユーティリティのインスタンスに追加するプロセスを開始するには、 NetAppサポートサイトからインストールイメージをダウンロードする必要があります。ONTAPONTAP Selectインストールイメージは、単一の圧縮ファイルとしてフォーマットされています。
 
 .手順
-. link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site ダウンロード"^]ページにアクセスします。
-. 下にスクロールして、* ONTAP Select Image *を選択します。
-. インストールイメージの目的のリリースを選択します。
-. エンド ユーザー ライセンス契約 (EULA) を確認し、[同意して続行] を選択します。
-. 適切な*ONTAP Select Image Install*パッケージを選択してダウンロードしてください。必要に応じてすべてのプロンプトに応答します。
+. Webブラウザを使用してNetApp Support Siteにアクセスし、*Support Quick Links*を選択します。
+. *Top Tasks* の下にある *Download Software* を選択し、サイトに Sign in します。
+. *製品を探す*を選択します。
+. 下にスクロールして*ONTAP Select*を選択してください。
+. *Other Available Select Software* で、*Deploy Upgrade、Node Upgrade、Image Install* を選択します。
+. アップグレード パッケージの目的のリリースを選択します。
+. エンドユーザーライセンス契約（EULA）を確認し、*Accept & Continue*をクリックします。
+. 適切なパッケージを選択してダウンロードし、環境に応じて必要なすべてのプロンプトに応答します。
 
 
 
@@ -43,7 +46,7 @@ ONTAP SelectイメージをDeployユーティリティのインスタンスに�
 ONTAP Selectインストール イメージを取得したら、そのファイルを Deploy 仮想マシンにアップロードする必要があります。
 
 .開始する前に
-ローカルワークステーションにインストールイメージファイルがあることを確認します。Deploy管理者ユーザーアカウントのパスワードも必要です。
+ローカル ワークステーションにインストール イメージ ファイルを用意しておく必要があります。Deploy 管理者ユーザー アカウントのパスワードも必要です。
 
 .タスク概要
 このタスクでは、Deploy仮想マシンにファイルをアップロードする方法の一つを説明します。環境によっては、より適切な他の方法がある場合があります。
@@ -77,8 +80,9 @@ exit
 .手順
 . 管理者 (admin) アカウントで SSH を使用して、デプロイ ユーティリティ CLI にSign in。
 . Bash シェルを起動します。
-+
-[source, cli]
+
+
+[listing]
 ----
 shell bash
 ----

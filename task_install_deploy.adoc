@@ -18,29 +18,31 @@ ONTAP Select Deploy 管理ユーティリティをインストールし、その
 
 
 
-== ステップ1：仮想マシンイメージをダウンロードする
+== 仮想マシンイメージをダウンロードする
 
-NetApp サポートサイトから ONTAP Select パッケージをダウンロードします。
+ONTAP SelectパッケージはNetAppサポートサイトからダウンロードできます。
 
 .開始する前に
 https://mysupport.netapp.com/site/user/registration["NetAppサポートサイトのアカウントが登録されています"^]。
 
 .タスク概要
-ONTAP Select Deploy管理ユーティリティは、Open Virtualization Format（OVF）標準に基づく仮想マシン（VM）としてパッケージ化されています。単一の圧縮ファイルには、ESXiホスト用のサフィックス `OVA`とKVMホスト用のサフィックス `TGZ`が付いています。VMは、ONTAP Selectノード用のDeployサーバーとインストールイメージを提供します。
+ONTAP Select Deploy管理ユーティリティは、Open Virtualization Format（OVF）標準に基づく仮想マシン（VM）としてパッケージ化されています。単一の圧縮ファイルには、サフィックス `ova`が付いています。VMは、DeployサーバーとONTAP Selectノードのインストールイメージを提供します。
 
 .手順
-. link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site ダウンロード"^]ページにアクセスします。
-. 下にスクロールして*ONTAP Select Deploy*を選択してください。
-. 希望する ONTAP Select バージョンを選択してください。
+. Web ブラウザを使用してlink:https://mysupport.netapp.com/site/["NetAppサポート サイト"^]にアクセスし、サインインします。
+. メニューから * ダウンロード * を選択し、ドロップダウンメニューから * ダウンロード * を選択します。
+. ダウンロード ページの [すべての製品 A-Z] の下で、文字 *O* を選択します。
+. 下にスクロールして*ONTAP Select*を選択してください。
+. パッケージの目的のリリースを選択します。
 . エンド ユーザー ライセンス契約 (EULA) を確認し、[同意して続行] を選択します。
-. 適切な*ONTAP Select Deploy Install*パッケージを選択してダウンロードしてください。必要に応じてすべてのプロンプトに応答します。
+. 適切なパッケージを選択してダウンロードし、必要に応じてすべてのプロンプトに応答します。
 
 
 
 
-== ステップ2：ONTAP Select Deploy OVA署名を確認する
+== ONTAP Select Deploy OVA署名を確認する
 
-インストール パッケージをインストールする前に、ONTAP Select Open Virtualization Appliance（OVA）署名を確認します。
+ONTAP Select Open Virtualization Appliance（OVA）署名は、インストール パッケージをインストールする前に確認する必要があります。
 
 .開始する前に
 システムが次の要件を満たしていることを確認してください。
@@ -72,9 +74,9 @@ ONTAP Select Deploy管理ユーティリティは、Open Virtualization Format�
 | `ONTAPdeploy.ova.sig` | SHA-256アルゴリズムはハッシュ化され、リモートサポートエージェント（RSA）によって署名されます。 `csc-prod`インストーラーのキーと署名。 
 |===
 . 確認するには `ONTAPdeploy.ova.sig`ファイルは関連付けられている証明書と検証コマンドを使用しています。
-. 署名を検証します：
+. 次のコマンドで署名を検証します：
 +
-[source, cli]
+[listing]
 ----
 openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTAPdeploy.ova.sig  ONTAPdeploy.ova
 ----
@@ -82,9 +84,9 @@ openssl dgst  -sha256 -verify ONTAP-Select-Deploy-Production.pub -signature ONTA
 
 
 
-== ステップ3：仮想マシンを展開する
+== 仮想マシンを導入する
 
-OVF VM イメージを使用して ONTAP Select Deploy VM をインストールして起動します。インストール プロセスの一環として、DHCP または静的 IP 構成を使用するようにネットワーク インターフェイスを構成します。
+OVF VM イメージを使用して ONTAP Select Deploy VM をインストールして起動する必要があります。インストールプロセスの一環として、DHCP または静的 IP 構成を使用するようにネットワークインターフェイスを構成します。
 
 .開始する前に
 ESXi ハイパーバイザーの場合は、 ONTAP Select Deploy VM を展開する準備をする必要があります。
@@ -115,14 +117,14 @@ vSphere を使用する場合、OVF テンプレートのデプロイ ウィザ�
 --
 . vSphere クライアントにアクセスしてサインインします。
 . 階層内の適切な場所に移動し、*OVF テンプレートのデプロイ*を選択します。
-. OVA ファイルを選択し、Deploy OVF Template ウィザードを完了します。ご使用の環境に適したオプションを選択してください。
+. OVA ファイルを選択し、環境に応じて適切なオプションを選択して、Deploy OVF Template ウィザードを完了します。
 +
 管理者アカウントのパスワードを定義する必要があります。このパスワードは、Deployユーティリティにサインインする際に入力する必要があります。
 
 . VM がデプロイされたら、新しい VM を選択します。デプロイウィザードへの入力内容に基づいて VM がまだパワーオンされていない場合は、手動でパワーオンしてください。
 . 必要に応じて、VM コンソールを使用してデプロイ ネットワークを構成できます。
 +
-.. *コンソール*タブを選択して、ESXi ホストセットアップシェルにアクセスし、電源オンプロセスを監視します。
+.. *Console* タブをクリックして、ESXi ホスト セットアップ シェルにアクセスし、電源オン プロセスを監視します。
 .. 次のプロンプトを待ちます。
 +
 ホスト名:
@@ -138,7 +140,7 @@ vSphere を使用する場合、OVF テンプレートのデプロイ ウィザ�
 DHCPを使用してネットワーク情報を設定しますか? [n]:
 
 .. 静的 IP 構成を定義するには *n* と入力し、DHCP を使用するには *y* と入力して、*Enter* を選択します。
-.. 静的構成を選択する場合は、必要なネットワーク構成情報をすべて指定します。
+.. 静的構成を選択する場合は、必要に応じてすべてのネットワーク構成情報を提供します。
 
 
 
@@ -198,9 +200,9 @@ Use DHCP to set networking information? [n]:
 ====
 
 
-== ステップ4：Deploy WebインターフェースにSign in
+== Deploy Web インターフェイスに Sign in します
 
-Web ユーザー インターフェイスに Sign in して、デプロイ ユーティリティが使用可能であることを確認し、初期構成を実行します。
+Deploy ユーティリティが使用可能であることを確認して初期構成を実行するには、Web ユーザー インターフェイスに Sign in する必要があります。
 
 .手順
 . IP アドレスまたはドメイン名を使用して、ブラウザでデプロイ ユーティリティにアクセスします。
@@ -209,7 +211,7 @@ Web ユーザー インターフェイスに Sign in して、デプロイ ユ�
 
 . 管理者 (admin) アカウント名とパスワードを入力してサインインします。
 . *Welcome to ONTAP Select* ポップアップ ウィンドウが表示された場合は、前提条件を確認し、*OK* を選択して続行します。
-. 初めてサインインする場合、vCenter で使用可能なウィザードを使用して Deploy をインストールしていない場合は、プロンプトが表示されたら次の構成情報を入力します。
+. 初めてサインインする場合で、vCenterに付属のウィザードを使用してDeployをインストールしていない場合は、プロンプトが表示されたら次の構成情報を入力します：
 +
 ** 管理者アカウントの新しいパスワード（必須）
 ** AutoSupport（オプション）
@@ -218,10 +220,7 @@ Web ユーザー インターフェイスに Sign in して、デプロイ ユ�
 
 
 
-.次の手順：
-link:task_deploy_cluster.html["ONTAP Selectクラスタを導入する"]
-
 .関連情報
-* link:task_cli_signing_in.html["SSHを使用してDeployにSign inする方法を学ぶ"]
-* link:deploy-evaluation-ontap-select-ovf-template.html["ONTAP Selectクラスタの90日間評価インスタンスの導入について学ぶ"]
+* link:task_cli_signing_in.html["Sign inしてSSHを使用してデプロイする"]
+* link:deploy-evaluation-ontap-select-ovf-template.html["ONTAP Selectクラスタの90日間評価インスタンスを導入する"]
 
