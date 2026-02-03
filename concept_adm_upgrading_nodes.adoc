@@ -25,14 +25,14 @@ CAUTION: Deploy管理ユーティリティを使用して、既存のONTAP Selec
 
 大まかに言うと、既存のONTAP Selectノードをアップグレードするには、次の手順に従う必要があります。
 
-. NetAppサポート サイトのダウンロード ページに移動します。
+.手順
+. link:https://mysupport.netapp.com/site/downloads/["NetApp Support Site ダウンロード"^]ページにアクセスします。
+. 下にスクロールして、* ONTAP Select Image *を選択します。
+. インストールイメージの目的のリリースを選択します。
+. エンド ユーザー ライセンス契約 (EULA) を確認し、[同意して続行] を選択します。
+. 適切な*ONTAP Select Image Upgrade*パッケージを選択してダウンロードしてください。必要に応じてすべてのプロンプトに応答します。
 +
-https://mysupport.netapp.com/site/downloads["NetAppサポート ダウンロード"^]
-
-. * ONTAP Selectノードのアップグレード*をクリックします。
-. 必要に応じてすべてのプロンプトに応答し、適切なアップグレード イメージを選択してダウンロードします。
-+
-ONTAP Selectノードをアップグレードする前に、リリース ノートで追加情報と必要な手順を確認してください。
+ONTAP Selectノードをアップグレードする前に、link:reference_release_notes.html["リリース ノート"]で追加情報と必要な手順を確認してください。
 
 . ONTAP Selectノードを、ONTAP Selectアップグレードファイルを使用した標準のONTAPアップグレード手順でアップグレードします。サポートされているアップグレードパスの詳細については、link:https://docs.netapp.com/us-en/ontap/upgrade/concept_upgrade_paths.html["サポートされるONTAPのアップグレード パス"^] 。
 
