@@ -38,6 +38,10 @@ NOTE: ハードウェア固有の依存関係を持つONTAP機能は、通常、
 * ONTAPマルチテナンシー機能
 * ONTAP S3
 * S3 SnapMirror
+* SnapLock Select
++
+SnapLock SelectはONTAP Select向けに設計されたONTAP SnapLockの実装であり、SnapLock Enterpriseが含まれています。SnapLock Complianceは含まれていません。詳細については、link:https://docs.netapp.com/us-en/ontap/snaplock/index.html["ONTAP SnapLock ドキュメント"^]を参照してください。
+
 * SnapMirror
 * SnapMirrorクラウド
 * SnapRestore
@@ -61,7 +65,7 @@ NOTE: ONTAP Selectは、ソースとデスティネーションの両方でSVM D
 
 [NOTE]
 ====
-* ONTAP Select 9.16.1以前では、 SnapLock Select Enterprise（改ざん防止スナップショットロックを含む）は、link:https://mysupport.netapp.com/site/["NetAppサポート サイト"^] 。
+* ONTAP Select 9.16.1 以前の場合、SnapLock Select（改ざん防止Snapshotロックを含む）はlink:https://mysupport.netapp.com/site/["NetAppサポート サイト"^]から入手できます。
 * SnapLock Compliance はONTAP Selectではサポートされていません。
 * StorageGRIDを使用する場合、 FabricPoolライセンスは必要ありません。
 
