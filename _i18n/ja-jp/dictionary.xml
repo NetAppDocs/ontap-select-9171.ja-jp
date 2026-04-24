@@ -3226,7 +3226,6 @@
   <block id="a811207ba17996dc78a58667cd177a13" category="inline-link-macro">ホスト準備チェックリスト</block>
   <block id="3f47eb1c93cfecc035015d51dea43351" category="inline-link-macro">デプロイユーティリティのインストール</block>
   <block id="650b54030913723e437a2beaa84f5e95" category="inline-link-macro">ONTAP Selectのインストール</block>
-  <block id="2eb8006ba6af294cdeda2a87c467fa5c" category="paragraph">フォロー<block ref="98f788baf075ad6e86ad4cdcdcd40ae3" category="inline-link-macro-rx"></block>、必要な情報を確認してください<block ref="5f52a4a178eaea2e0c4812fd7a9f2757" category="inline-link-macro-rx"></block>そして<block ref="b3b43e0c3f8f2e7f8b8f596dd2656645" category="inline-link-macro-rx"></block>詳細についてはこちらをご覧ください。</block>
   <block id="9ee25f36a4c63773203c1547efed4fc1" category="paragraph">この手順は、新しいONTAP Selectクラスタを作成する前に実行する必要があります。既存のソフトウェアRAID NVMeクラスタに追加のNVMeドライブを設定する手順も実行できます。この場合、ドライブを設定した後、SSDドライブを追加する場合と同様に、Deployを使用してドライブを追加する必要があります。主な違いは、DeployがNVMeドライブを検出し、ノードを再起動することです。既存のクラスタにNVMeドライブを追加する場合は、再起動プロセスについて次の点に注意してください。</block>
   <block id="fd5c5757c7f7041a2e15ed74c2c32432" category="list-text">デプロイは再起動オーケストレーションを処理します。</block>
   <block id="668ad5825e6f031e6f06ed116fda245d" category="list-text">HA テイクオーバーとギブバックは順番に実行されますが、アグリゲートの再同期には時間がかかる場合があります。</block>
@@ -3927,4 +3926,5 @@
   <block id="1d6a755bc579447fd7ccaf4c366f016d" category="list-text">ONTAP Select Deploy MediatorとONTAP Selectノード間の125msのRTTと5Mbpsの最小帯域幅</block>
   <block id="2cc135ee22f21247b52a24a050dc5f69" category="list-text">PremiumまたはPremium XLライセンス</block>
   <block id="3712f888ec8c939491ff4fe2129b3d6e" category="paragraph">MetroCluster SDSは、2ノードONTAP Selectクラスタを作成する際の構成オプションです。これは、リモートオフィス／ブランチオフィス（ROBO）の導入に似ています。この強化された2ノード構成により、さらに多くのユースケースシナリオが利用可能になります。MetroCluster SDSを導入する準備の一環として、要件と制限事項を認識しておく必要があります。</block>
+  <block id="e16080ba1221020cf277f79a62c290d9" category="paragraph"><block ref="aa150fc2553a8a0c846847314bde8f61" category="inline-link-macro-rx"></block>に従い、<block ref="5f52a4a178eaea2e0c4812fd7a9f2757" category="inline-link-macro-rx"></block>および<block ref="b3b43e0c3f8f2e7f8b8f596dd2656645" category="inline-link-macro-rx"></block>に必要な情報を確認してください。</block>
 </blocks>
