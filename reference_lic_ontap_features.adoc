@@ -29,6 +29,9 @@ NOTE: ハードウェア固有の依存関係を持つONTAP機能は、通常、
 * CIFS
 * 重複排除と圧縮
 * FlexCache
++
+ONTAP Select での FlexCache 書き戻しのサポートには制限があります。詳細については、link:https://docs.netapp.com/us-en/ontap-select/concept_ots_overview.html#flexcache-write-back-with-ontap-select["FlexCache による ONTAP Select への書き戻し"^]を参照してください。
+
 * FlexClone
 * iSCSI
 * NDMP
@@ -40,10 +43,12 @@ NOTE: ハードウェア固有の依存関係を持つONTAP機能は、通常、
 * S3 SnapMirror
 * SnapLock Select
 +
-SnapLock SelectはONTAP Select向けに設計されたONTAP SnapLockの実装であり、SnapLock Enterpriseが含まれています。SnapLock Complianceは含まれていません。詳細については、link:https://docs.netapp.com/us-en/ontap/snaplock/index.html["ONTAP SnapLock ドキュメント"^]を参照してください。
+SnapLock SelectはONTAP Select向けに設計されたONTAP SnapLockの実装であり、SnapLock Enterpriseが含まれています。SnapLock Complianceは含まれていません。
+
++
+link:https://docs.netapp.com/us-en/ontap/snaplock/index.html["ONTAP SnapLock"^]について学ぶ
 
 * SnapMirror
-* SnapMirrorクラウド
 * SnapRestore
 * SnapVault
 * ストレージ VM 災害復旧 (SVM DR)
@@ -61,6 +66,13 @@ NOTE: ONTAP Selectは、ソースとデスティネーションの両方でSVM D
 
 * FabricPool
 * MetroCluster SDS（ONTAP Selectプレミアムライセンス提供）
+* SnapMirrorクラウド
++
+link:https://mysupport.netapp.com/site/help["非技術的なサポートケースを開く"^]してSnapMirrorクラウドライセンスを取得する必要があります。
+
++
+link:https://docs.netapp.com/us-en/ontap/concepts/snapmirror-cloud-backups-object-store-concept.html["オブジェクト ストレージへのSnapMirrorクラウドのバックアップ"^]について学ぶ
+
 
 
 [NOTE]

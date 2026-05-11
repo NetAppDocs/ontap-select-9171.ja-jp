@@ -2170,9 +2170,6 @@
   <block id="9b08665180caa1c2f681ecd893474c76" category="list-text">10ノードから8または6ノードへ</block>
   <block id="fb6ec34800c58ebc5bb6517ce0db74b8" category="list-text">8ノードから6ノードへ</block>
   <block id="8c4c7ec85ddc20b785383c7e3b83aaf3" category="list-text">SnapMirrorクラウドのサポート</block>
-  <block id="8e6364cfe908f51088b3ba968ff3a1ef" category="list-text">ONTAP Select 9.17.1 以降、 SnapMirrorクラウドがONTAP Selectでサポートされます。SnapMirrorSnapMirrorは、 ONTAP Select 9.17.1 クラスタを導入するか、既存のONTAP Selectクラスタをバージョン 9.17.1 にアップグレードすると、デフォルトで有効になるライセンス対象のONTAP機能です。</block>
-  <block id="138c7cd45c4194bbbdcc248c8d717a95" category="inline-link">オブジェクトストレージへのSnapMirrorクラウドバックアップについて学ぶ</block>
-  <block id="a674f1954e78adeee48a68d3b46f7329" category="paragraph"><block ref="e78089da9b0e2900996a3bebc3fd1588" category="inline-link-rx"></block>。</block>
   <block id="e9d1284d8df9151f9bec7a163cd5c363" category="list-text">マルチノードクラスタでの vSAN ESA のサポート</block>
   <block id="4ba59a7efee785c52f70cdae7fca55c3" category="list-text">ONTAP Select 9.17.1 以降では、vSAN Express Storage Architecture (ESA) のサポートが拡張され、マルチノード クラスタを展開できるようになりました。この機能強化により、vSAN ESA 構成をデプロイできるようになります。</block>
   <block id="e9c8709140b0de62f90e930862c6b06a" category="paragraph">vSAN ESA は ESX 固有の構成であり、vSphere 8 で導入された VMware vSAN の新しいアーキテクチャです。vSAN ESA は、特に NVMe ベースの TLC フラッシュ デバイスを使用する場合に、強化された効率、スケーラビリティ、およびパフォーマンスを提供するように設計されています。</block>
@@ -3910,11 +3907,8 @@
   <block id="5aa6aa921cf2d6f0b9754a2006c7bc35" category="list-text">Rocky Linux 10.0、9.7、9.6、9.5、9.4、9.3、9.2、9.1、9.0、8.9、8.8、8.7、および8.6上のKVM</block>
   <block id="3f83d67e3baa5e5249a6ace7bf94d7b8" category="list-text">Rocky Linux 10.0、9.7、9.6、9.5、9.4、9.3、9.2、9.1、9.0、8.9、8.8、8.7、8.6</block>
   <block id="047fc3d7b951880ca6749f6433cfe2bf" category="list-text">SnapLock Select</block>
-  <block id="62d69997b08663dafba848660e7b1cee" category="inline-link-macro">ONTAP SnapLock ドキュメント</block>
-  <block id="a2c36271189430a9451913aeb53ffe5c" category="paragraph">SnapLock SelectはONTAP Select向けに設計されたONTAP SnapLockの実装であり、SnapLock Enterpriseが含まれています。SnapLock Complianceは含まれていません。詳細については、<block ref="4550ac0e247ddc9f80a43ee81b1b5a95" category="inline-link-macro-rx"></block>を参照してください。</block>
   <block id="03ac71bebfd40853f4266d059ed25b35" category="list-text">ONTAP Select 9.16.1 以前の場合、SnapLock Select（改ざん防止Snapshotロックを含む）は<block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block>から入手できます。</block>
   <block id="d7a5c2d00ea9258a0d2580ffe65ad84c" category="list-text">SnapLock Selectのサポート</block>
-  <block id="3ef41e1838b5f933bc2b06f1eb6efb06" category="list-text">ONTAP Select 9.17.1以降、新しい導入ではSnapLock Select（改ざん防止Snapshotロックを含む）が自動的にライセンス付与されます。ONTAP Select 9.16.1以前からのアップグレードの場合は、<block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block>からSnapLock Selectライセンスを無料でダウンロードして手動で適用できます。詳細については、<block ref="c7da6e6f478f90eda131fcbe777888c9" category="inline-link-macro-rx"></block>を参照してください。</block>
   <block id="8380920f551ca0c124aced59300fc93c" category="paragraph">MetroClusterとは異なり、ONTAP Selectは既存のネットワーク インフラを使用し、最大5msのRTTと最大5msのジッターをサポートし、合計で最大10msの遅延に対応します。市場における分離要件は、実際の距離よりも物理的な分離に関係することが多い。場合によっては、これは異なる建物を意味することもある。また、同じ建物内の異なる部屋を指す場合もある。実際の物理的な配置に関係なく、2ノードクラスタをMetroCluster SDSとして定義するのは、各ノードがそれぞれ独立したアップリンクスイッチを使用することです。</block>
   <block id="558e06b6dd08fae765da42c411221de9" category="paragraph">2ノードMetroCluster SDSは、物理的に300m以上離れたノード（異なる部屋、異なる建物、異なるデータセンター）で構成されるクラスタとして定義されます。さらに、各ノードのアップリンク接続は、それぞれ別のネットワークスイッチに接続されます。MetroCluster SDSは専用ハードウェアを必要としません。ただし、環境はレイテンシに関する要件（RTTが最大5ms、ジッターが最大5ms、合計10ms）を満たす必要があります。</block>
   <block id="c337422f492f6f6f4bce841427686ed5" category="paragraph">すべての VMware vSphere ライセンスがサポートされているため、Enterprise または Enterprise Plus ライセンスの代わりに vSphere Remote Office Branch Office Standard または Advanced ライセンスを選択できます。</block>
@@ -3927,4 +3921,15 @@
   <block id="2cc135ee22f21247b52a24a050dc5f69" category="list-text">PremiumまたはPremium XLライセンス</block>
   <block id="3712f888ec8c939491ff4fe2129b3d6e" category="paragraph">MetroCluster SDSは、2ノードONTAP Selectクラスタを作成する際の構成オプションです。これは、リモートオフィス／ブランチオフィス（ROBO）の導入に似ています。この強化された2ノード構成により、さらに多くのユースケースシナリオが利用可能になります。MetroCluster SDSを導入する準備の一環として、要件と制限事項を認識しておく必要があります。</block>
   <block id="e16080ba1221020cf277f79a62c290d9" category="paragraph"><block ref="aa150fc2553a8a0c846847314bde8f61" category="inline-link-macro-rx"></block>に従い、<block ref="5f52a4a178eaea2e0c4812fd7a9f2757" category="inline-link-macro-rx"></block>および<block ref="b3b43e0c3f8f2e7f8b8f596dd2656645" category="inline-link-macro-rx"></block>に必要な情報を確認してください。</block>
+  <block id="02eaca23acd9bd60cfee240891736083" category="inline-link-macro">FlexCache による ONTAP Select への書き戻し</block>
+  <block id="829a60be78f33e711c960543ff962d08" category="paragraph">ONTAP Select での FlexCache 書き戻しのサポートには制限があります。詳細については、<block ref="43b5c38e400537347d857d4ad7b2dd01" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="38b80c13e49233a5fa3471c364fdc493" category="paragraph">SnapLock SelectはONTAP Select向けに設計されたONTAP SnapLockの実装であり、SnapLock Enterpriseが含まれています。SnapLock Complianceは含まれていません。</block>
+  <block id="af30d81f9a8c2c0f5b25d08da7858ddc" category="inline-link-macro">ONTAP SnapLock</block>
+  <block id="4f187117101edb6221a27ad094532806" category="paragraph"><block ref="e5be20e426588130203bae7a7e597f79" category="inline-link-macro-rx"></block>について学ぶ</block>
+  <block id="b638d0f1dd4c80d3617cfefeec604c5d" category="inline-link-macro">非技術的なサポートケースを開く</block>
+  <block id="7a3af7c91740e45930119ddce3bf0d83" category="paragraph"><block ref="edc9445a6277b18c79e0ada4e6ba9f5f" category="inline-link-macro-rx"></block>してSnapMirrorクラウドライセンスを取得する必要があります。</block>
+  <block id="d6e5e04c7b9c56d9515955d288b0e813" category="inline-link-macro">オブジェクト ストレージへのSnapMirrorクラウドのバックアップ</block>
+  <block id="609570e1a92256aa3f9b774f7dbf24fc" category="paragraph"><block ref="4ae01b68125388898638ecb3eb2e59b7" category="inline-link-macro-rx"></block>について学ぶ</block>
+  <block id="d8818ebf9ca1095fb7a5372f4292243c" category="list-text">ONTAP Select 9.17.1以降、SnapMirror cloudはONTAP Selectでサポートされています。SnapMirror cloudは、ONTAP Selectではデフォルトでライセンスされていません。ONTAP Select 9.17.1クラスタを導入する場合、または既存のONTAP Selectクラスタをバージョン9.17.1にアップグレードする場合は、SnapMirror cloudライセンスをリクエストする必要があります。詳細については、<block ref="721bf771faed6cfbdee5aa217f7b1ff8" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="142f59b080f0f1bf1136c761bdeb20c0" category="list-text">ONTAP Select 9.17.1以降、新しい導入ではSnapLock Select（改ざん防止Snapshotロックを含む）が自動的にライセンス付与されます。ONTAP Select 9.16.1以前からのアップグレードの場合は、<block ref="a42716fdd3c80ae75cadfb8024b65de0" category="inline-link-macro-rx"></block>からSnapLock Selectライセンスを無料でダウンロードして手動で適用できます。詳細については、<block ref="c7da6e6f478f90eda131fcbe777888c9" category="inline-link-macro-rx"></block>を参照してください。</block>
 </blocks>
