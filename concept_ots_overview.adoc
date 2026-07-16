@@ -26,6 +26,7 @@ SnapMirrorソフトウェアを使用すると、ハイブリッドクラウド�
 
 
 
+[[software-defined-storage]]
 == ソフトウェア定義ストレージ
 
 ソフトウェアによるITサービスの実装と提供により、管理者はこれまで不可能だったスピードと俊敏性でリソースを迅速にプロビジョニングできるようになります。現代のデータセンターがソフトウェア定義インフラストラクチャ（SDI）アーキテクチャに移行するにつれて、最も重要なIT資産を基盤となる物理インフラストラクチャから分離し、柔軟性、拡張性、そしてプログラマビリティを実現できるようになります。
@@ -36,18 +37,21 @@ ONTAP Selectは、SDS市場向けのNetAppソリューションです。ONTAPONT
 
 
 
+[[two-software-components]]
 == 2つのソフトウェアコンポーネント
 
 ONTAP Select は、次の 2 つの主要なソフトウェア コンポーネントで構成されています。
 
 
 
+[[ontap-select-node]]
 === ONTAP Selectノード
 
 ONTAP Selectクラスタは、1、2、4、6、または8ノードで構成されます。各クラスタノードは個別の仮想マシンとして導入され、特別に設計されたバージョンのONTAP 9ソフトウェアを実行します。
 
 
 
+[[ontap-select-deploy-administration-utility]]
 === ONTAP Select Deploy 管理ユーティリティ
 
 Deploy管理ユーティリティは、個別のLinux仮想マシンとしてパッケージ化され、インストールされます。本番環境にONTAP Selectクラスタを導入するには、このユーティリティを使用する必要があります。Deployユーティリティには、ONTAP Selectノードイメージの最新バージョンがバンドルされています。
@@ -57,6 +61,7 @@ NOTE: Deploy管理ユーティリティには個別のバージョン番号は�
 
 
 
+[[illustration-of-a-typical-deployment]]
 == 典型的な展開の図
 
 次の図は、 NetApp ONTAP Select Deploy管理ユーティリティを使用して、4ノードのONTAP Selectクラスタを導入およびサポートしている様子を示しています。DeployユーティリティとONTAP Selectノードは、専用のハイパーバイザーホスト上で別々の仮想マシンとして実行されます。
@@ -65,30 +70,35 @@ image:ots_architecture.png["Deploy 管理ユーティリティを使用して作
 
 
 
+[[compare-ontap-select-and-ontap-9]]
 == ONTAP SelectとONTAP 9の比較
 
 ハードウェアベースのONTAPとONTAP Selectはどちらもエンタープライズクラスのストレージソリューションを提供します。ただし、設計と実装が異なるため、それぞれ異なるビジネス要件と使用シナリオに対応できます。ONTAPONTAP Selectの導入を計画する前に、プラットフォーム間の主な違いを理解しておく必要があります。
 
 
 
+[[different-ha-architecture]]
 === 異なるHAアーキテクチャ
 
 クラスタに定義するノード数に応じて、 ONTAP SelectはHA機能を提供します。例えば、4ノードクラスタは2つのHAペアで構成されます。ONTAP Selectで使用されるHAアーキテクチャは、非共有ストレージモデルに基づいています。つまり、HAペアの一方のノードは、もう一方のノードが所有するストレージに直接アクセスできません。この設計は、ONTAP Selectの特定の動作特性に影響を与える可能性があります。
 
 
 
+[[capacity-licensing]]
 === 容量ライセンス
 
 ONTAP Select、使用量ベースのライセンスモデルが導入されています。本番環境にONTAP Selectクラスタを導入する場合は、各ノードまたは共有容量プールのストレージ容量に対応したライセンスを購入する必要があります。Deployユーティリティを使用して、クラスタノードのストレージ容量を設定するライセンスファイルを適用する必要があります。
 
 
 
+[[ontap-feature-licensing]]
 === ONTAP機能ライセンス
 
 ONTAP Selectクラスタ内の各ノードには、いくつかのONTAP機能を使用するためのライセンスが自動的に付与されます。これらの機能ライセンスを手動でインストールまたは適用する必要はありません。
 
 
 
+[[ontap-features-not-supported-in-ontap-select]]
 === ONTAP SelectではサポートされていないONTAP機能
 
 ONTAP Selectでは、一部のONTAP機能がサポートされていません。多くの場合、これらの機能を使用するには、仮想化されたONTAP Select環境では利用できない特殊なハードウェアが必要です。

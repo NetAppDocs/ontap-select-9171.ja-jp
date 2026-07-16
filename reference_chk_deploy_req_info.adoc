@@ -18,6 +18,7 @@ summary: VMware 環境に Deploy 管理ユーティリティをインストー�
 
 
 
+[[required-configuration-information]]
 == 必要な構成情報
 
 導入計画の一環として、 ONTAP Select Deploy 管理ユーティリティをインストールする前に、必要な設定情報を決定する必要があります。
@@ -40,6 +41,7 @@ summary: VMware 環境に Deploy 管理ユーティリティをインストー�
 |===
 
 
+[[optional-network-configuration-information]]
 == オプションのネットワーク構成情報
 
 Deploy仮想マシンはデフォルトでDHCPを使用して構成されます。ただし、必要に応じて、仮想マシンのネットワークインターフェースを手動で構成することもできます。

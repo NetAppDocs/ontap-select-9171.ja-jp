@@ -21,6 +21,7 @@ NOTE: ハードウェア固有の依存関係を持つONTAP機能は、通常、
 
 
 
+[[ontap-features-automatically-enabled-by-default]]
 == ONTAP機能はデフォルトで自動的に有効化されます
 
 次のONTAP機能はONTAP Selectでサポートされており、デフォルトでライセンスが付与されます。
@@ -60,6 +61,7 @@ NOTE: ONTAP Selectは、ソースとデスティネーションの両方でSVM D
 
 
 
+[[ontap-features-that-are-separately-licensed]]
 == 別途ライセンスが必要なONTAPの機能
 
 デフォルトで有効になっていない次のようなONTAP機能については、別途ライセンスを取得する必要があります。

@@ -18,12 +18,14 @@ Representational State Transfer（REST）は、分散Webアプリケーション
 
 
 
+[[architecture-and-classic-constraints]]
 == 建築と古典的な制約
 
 RESTはロイ・フィールディング博士によって正式に発表された。 https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm["論文"] 2000年にカリフォルニア大学アーバイン校で。発表されました。一連の制約を通してアーキテクチャスタイルを定義し、Webベースのアプリケーションとその基盤となるプロトコルを総合的に改善します。これらの制約により、ステートレスな通信プロトコルを用いたクライアント/サーバーアーキテクチャに基づくRESTful Webサービスアプリケーションが構築されます。
 
 
 
+[[resources-and-state-representation]]
 == リソースと状態の表示
 
 リソースはWebベース システムの基本コンポーネントです。REST Webサービス アプリケーションを作成する場合、設計の早い段階で次の作業を行います。
@@ -36,12 +38,14 @@ RESTはロイ・フィールディング博士によって正式に発表され�
 
 
 
+[[uri-endpoints]]
 == URIエンドポイント
 
 すべてのRESTリソースは、明確に定義されたアドレス指定方式を使用して定義、提供される必要があります。リソースが置かれているエンドポイントは、Uniform Resource Identifier（URI）で識別されます。URIは、ネットワークの各リソースに一意の名前を作成するための一般的なフレームワークです。Uniform Resource Locator（URL）は、リソースを識別してアクセスするためにWebサービスで使用されるURIの一種です。リソースは、通常、ファイル ディレクトリに似た階層構造で公開されます。
 
 
 
+[[http-messages]]
 == HTTPメッセージ
 
 Hypertext Transfer Protocol（HTTP）は、Webサービスのクライアントとサーバがリソースに関する要求と応答のメッセージを交換する際に使用するプロトコルです。Web サービス アプリケーションの設計の一環として、HTTP 動詞 (GET や POST など) がリソースおよび対応する状態管理アクションにマッピングされます。
@@ -50,6 +54,7 @@ HTTPはステートレスです。したがって、関連する要求と応答�
 
 
 
+[[json-formatting]]
 == JSONの形式
 
 情報はさまざまな方法で構造化してクライアントとサーバー間で転送できますが、最も一般的なオプション (Deploy REST API で使用されるオプション) は JavaScript Object Notation (JSON) です。JSONは、単純なデータ構造をプレーン テキストで表現するための業界標準であり、リソースについての状態情報の転送に使用されます。

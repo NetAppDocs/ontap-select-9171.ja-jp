@@ -21,18 +21,21 @@ NOTE: ONTAP Select Deployに含まれるREST APIにはバージョン番号が�
 
 
 
+[[deploy-utility-native-user-interface]]
 == デプロイユーティリティのネイティブユーザーインターフェース
 
 APIにアクセスする主な方法は、 ONTAP Select DeployのWebユーザインターフェイスを使用することです。ブラウザはAPIを呼び出し、ユーザインターフェイスの設計に従ってデータを再フォーマットします。また、DeployユーティリティのコマンドラインインターフェイスからもAPIにアクセスできます。
 
 
 
+[[ontap-select-deploy-online-documentation-page]]
 == ONTAP Select Deploy オンラインドキュメントページ
 
 ONTAP Select Deployのオンラインドキュメントページは、ブラウザ使用時の代替アクセスポイントとしてご利用いただけます。個々のAPI呼び出しを直接実行する方法に加えて、このページには、各呼び出しの入力パラメータやその他のオプションを含む、APIの詳細な説明も記載されています。API呼び出しは、複数の異なる機能領域またはカテゴリに分類されています。
 
 
 
+[[custom-program]]
 == カスタムプログラム
 
 Deploy APIには、様々なプログラミング言語とツールからアクセスできます。Python、Java、cURLなどが一般的です。APIを使用するプログラム、スクリプト、またはツールは、REST Webサービスクライアントとして機能します。プログラミング言語を使用することで、APIをより深く理解し、 ONTAP Selectの導入を自動化する機会が得られます。

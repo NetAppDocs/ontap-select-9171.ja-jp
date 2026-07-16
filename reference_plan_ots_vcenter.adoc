@@ -21,12 +21,14 @@ NOTE: また、 ONTAP Select が導入されている ESXi ハイパーバイザ
 
 
 
+[[administrative-privileges]]
 == 管理者権限
 
 ONTAP Selectクラスタを作成および管理するために必要な最小限の管理者権限を以下に示します。
 
 
 
+[[datastore]]
 === データストア
 
 * Allocate space
@@ -38,6 +40,7 @@ ONTAP Selectクラスタを作成および管理するために必要な最小�
 
 
 
+[[host]]
 === ホスト
 
 構成::
@@ -61,6 +64,7 @@ ONTAP Selectクラスタを作成および管理するために必要な最小�
 
 
 
+[[network]]
 === ネットワーク
 
 * Assign network
@@ -68,6 +72,7 @@ ONTAP Selectクラスタを作成および管理するために必要な最小�
 
 
 
+[[virtual-machine]]
 === 仮想マシン
 
 構成:: カテゴリ内のすべての権限。
@@ -78,9 +83,10 @@ ONTAP Selectクラスタを作成および管理するために必要な最小�
 
 
 
+[[vapp]]
 === vApp
 
 カテゴリ内のすべての権限。
 
 .関連情報
-link:https://docs.netapp.com/us-en/ontap-select/reference_plan_dep_vmware.html#ontap-select-deploy-vmware-vcenter-server-considerations["vCenter の vSAN ESA に対する VMware vSphere 権限について学習します"]
+link:reference_plan_dep_vmware.html#vmware-vcenter-server-considerations["vCenter の vSAN ESA に対する VMware vSphere 権限について学習します"]

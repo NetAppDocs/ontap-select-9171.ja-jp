@@ -18,6 +18,7 @@ VMware 環境に関連して、考慮する必要があるハードウェア要�
 
 
 
+[[hypervisor-requirements]]
 == ハイパーバイザーの要件
 
 ONTAP Select が実行されるハイパーバイザーに関連する要件がいくつかあります。
@@ -27,12 +28,14 @@ NOTE: 確認すべきはlink:reference_release_notes.html["ONTAP Selectリリー
 
 
 
+[[vmware-licensing]]
 === VMwareライセンス
 
 ONTAP Selectクラスタを導入するには、 ONTAP Selectが実行されるハイパーバイザーホスト用の有効なVMware vSphereライセンスが必要です。導入環境に適したライセンスを使用してください。
 
 
 
+[[software-compatibility]]
 === ソフトウェアの互換性
 
 ONTAP Select は、 KVM および ESXi ハイパーバイザーに導入できます。
@@ -79,12 +82,14 @@ NOTE: ESXi 6.5 GAおよびESXi 6.7 GAは提供終了となりました。これ�
 ====
 
 
+[[vmware-vcenter-and-standalone-esxi-hosts]]
 === VMware vCenter およびスタンドアロン ESXi ホスト
 
 ESXiハイパーバイザーホストがvCenter Serverによって管理されている場合は、vCenterの認証情報を使用して、ホストをDeploy管理ユーティリティに登録する必要があります。ESXiの認証情報を使用して、ホストをスタンドアロンホストとして登録することはできません。
 
 
 
+[[core-hardware-requirements]]
 == コアハードウェア要件
 
 ONTAP Selectを導入する物理ハイパーバイザーホストは、いくつかのハードウェア要件を満たしている必要があります。ハイパーバイザーホストには、最小ハードウェア要件を満たしていれば、任意のプラットフォームを選択できます。サポートされているハードウェアプラットフォームは、 Cisco、Dell、HP、Fujitsu、Lenovo、Supermicroの各ベンダーから提供されています。
@@ -96,6 +101,7 @@ NOTE: ONTAP Select 9.9.1 以降では、Intel Xeon Sandy Bridge 以降に基づ�
 
 
 
+[[basic-hardware-requirements]]
 === 基本的なハードウェア要件
 
 ノードインスタンスタイプやライセンス提供に関係なく、すべてのプラットフォームに適用される共通のハードウェア要件がいくつかあります。
@@ -124,6 +130,7 @@ NOTE: Advanced Micro Devices（AMD）プロセッサはONTAP Selectではサポ�
 |===
 
 
+[[additional-hardware-requirements-based-on-the-instance-type]]
 === インスタンスタイプに基づく追加のハードウェア要件
 
 ノードインスタンスタイプに基づいて、いくつかの追加のハードウェア要件があります。

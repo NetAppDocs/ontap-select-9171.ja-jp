@@ -20,6 +20,7 @@ summary: '仮想 NAS (vNAS) の展開では、vSAN、一部の HCI 製品、 Net
 
 
 
+[[vnas-architecture]]
 == vNASアーキテクチャ
 
 vNAS という命名法は、DAS を使用しないすべてのセットアップで使用されます。マルチノードONTAP Selectクラスタの場合、これには、同じ HA ペア内の 2 つのONTAP Selectノードが単一のデータストア（vSAN データストアを含む）を共有するアーキテクチャが含まれます。ノードは、同じ共有外部アレイの別のデータストアにインストールすることもできます。これにより、アレイ側のストレージ効率によって、 ONTAP Select HA ペア全体のフットプリントを削減できます。ONTAPONTAP Select vNAS ソリューションのアーキテクチャは、ローカル RAID コントローラを備えた DAS 上のONTAP Selectのアーキテクチャと非常によく似ています。つまり、各ONTAP Selectノードは、HA パートナーのデータのコピーを保持し続けます。ONTAPONTAP効率ポリシーはノードを対象としています。したがって、アレイ側のストレージ効率は、両方のONTAP Selectノードのデータセット全体に適用できる可能性があるため、推奨されます
@@ -30,6 +31,7 @@ HAペア内の各ONTAP Selectノードが個別の外部アレイを使用する
 
 
 
+[[vnas-architectures-versus-local-das-with-hardware-raid-controllers]]
 === vNAS アーキテクチャとハードウェア RAID コントローラを備えたローカル DAS の比較
 
 vNAS アーキテクチャは、論理的には DAS と RAID コントローラを備えたサーバのアーキテクチャに最も類似しています。どちらの場合も、 ONTAP Select はデータストア領域を消費します。このデータストア領域は VMDK に分割され、これらの VMDK が従来のONTAPデータアグリゲートを形成します。ONTAPONTAPは、cluster -create および storage-add 操作中に、VMDK が適切にサイズ設定され、適切なプレックス（HA ペアの場合）に割り当てられていることを確認します。
@@ -38,6 +40,7 @@ vNASとRAIDコントローラ搭載のDASには、2つの大きな違いがあ�
 
 
 
+[[vnas-nvram]]
 == vNAS NVRAM
 
 ONTAP Select NVRAMは VMDK です。つまり、 ONTAP Select は、ブロック アドレス指定可能なデバイス (VMDK) 上でバイト アドレス指定可能な空間 (従来のNVRAM) をエミュレートします。しかし、 NVRAMのパフォーマンスはONTAP Selectノード全体のパフォーマンスにとって極めて重要です。
@@ -60,6 +63,7 @@ volume efficiency stop -all true -vserver * -volume * (all volumes in the affect
 ----
 
 
+[[collocate-ontap-select-nodes-when-using-vnas-on-esxi]]
 == ESXi 上で vNAS を使用する場合にONTAP Selectノードを共存させる
 
 ONTAP Select は、共有ストレージ上のマルチノードONTAP Selectクラスタをサポートします。ONTAPONTAPでは、同じ ESX ホスト上に複数のONTAP Selectノードを設定できます。ただし、これらのノードが同じクラスタに属していない場合に限ります。この設定は VNAS 環境（共有データストア）にのみ有効です。DASストレージを使用する場合、ホストごとに複数のONTAP Selectインスタンスを設定することはできません。これらのインスタンスは同じハードウェア RAID コントローラを競合するためです。

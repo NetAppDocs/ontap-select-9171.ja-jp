@@ -28,6 +28,7 @@ ONTAP Select Deploy 9.16.1または9.15.1からONTAP Select Deploy 9.17.1に直�
 ====
 
 
+[[step-1-download-the-package]]
 == ステップ1：パッケージをダウンロードする
 
 アップグレードプロセスを開始するには、link:https://mysupport.netapp.com/site/["NetAppサポート サイト"^]から適切なONTAP Select Deploy仮想マシンのアップグレードファイルをダウンロードします。アップグレードパッケージは、単一の圧縮ファイルとしてフォーマットされます。
@@ -42,6 +43,7 @@ ONTAP Select Deploy 9.16.1または9.15.1からONTAP Select Deploy 9.17.1に直�
 
 
 
+[[step-2-upload-the-package-to-the-ontap-select-deploy-virtual-machine]]
 == ステップ2: ONTAP Select Deploy仮想マシンにパッケージをアップロードする
 
 パッケージをダウンロードしたら、そのファイルをONTAP Select Deploy 仮想マシンにアップロードする必要があります。
@@ -67,6 +69,7 @@ scp ONTAPdeploy2.12_upgrade.tar.gz admin@10.228.162.221:/home/admin (provide pas
 
 
 
+[[step-3-apply-the-upgrade-package]]
 == ステップ3: アップグレードパッケージを適用する
 
 アップグレード ファイルをONTAP Select Deploy 仮想マシンにアップロードしたら、アップグレードを適用できます。

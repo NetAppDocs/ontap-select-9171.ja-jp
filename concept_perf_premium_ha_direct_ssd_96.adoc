@@ -18,6 +18,7 @@ summary: ONTAP Select 9.6 パフォーマンス - プレミアム HA 直接接�
 
 
 
+[[reference-platform]]
 == リファレンスプラットフォーム
 
 ONTAP Select （プレミアムXL）ハードウェア（ノードあたり）
@@ -67,6 +68,7 @@ NOTE: これらのパフォーマンス数値はONTAP Select 9.6 に基づいて
 |===
 
 
+[[64k-sequential-read]]
 === 64Kシーケンシャルリード
 
 詳細：
@@ -82,6 +84,7 @@ NOTE: これらのパフォーマンス数値はONTAP Select 9.6 に基づいて
 
 
 
+[[64k-sequential-write]]
 === 64Kシーケンシャル書き込み
 
 詳細：
@@ -97,6 +100,7 @@ NOTE: これらのパフォーマンス数値はONTAP Select 9.6 に基づいて
 
 
 
+[[8k-random-read]]
 === 8Kランダム読み取り
 
 詳細：
@@ -112,6 +116,7 @@ NOTE: これらのパフォーマンス数値はONTAP Select 9.6 に基づいて
 
 
 
+[[8k-random-write]]
 === 8Kランダム書き込み
 
 詳細：
@@ -127,6 +132,7 @@ NOTE: これらのパフォーマンス数値はONTAP Select 9.6 に基づいて
 
 
 
+[[8k-random-50-write-50-read]]
 === 8Kランダム50%書き込み50%読み取り
 
 詳細：

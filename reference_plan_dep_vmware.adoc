@@ -21,6 +21,7 @@ CAUTION: NetAppサポートからの指示がない限り、 ONTAP Select仮想�
 
 
 
+[[hypervisor-independent]]
 == ハイパーバイザーに依存しない
 
 ONTAP SelectとONTAP Select Deploy 管理ユーティリティはどちらもハイパーバイザーに依存しません。
@@ -64,6 +65,7 @@ ONTAP SelectノードをONTAPハードウェアベースクラスタに直接追
 
 
 
+[[vmware-hypervisor-environment]]
 == VMwareハイパーバイザー環境
 
 ONTAP Select Deploy ユーティリティを VMware 環境にインストールする前に考慮する必要がある、VMware 環境に固有の要件と制限がいくつかあります。
@@ -106,13 +108,14 @@ ONTAP Select DeployはIPバージョン4（IPv4）のみをサポートします
 
 
 
-== ONTAP Select Deploy VMware vCenter Server の考慮事項
+[[vmware-vcenter-server-considerations]]
+== VMware vCenter サーバーに関する考慮事項
+
+.ESA の VMware vSphere 権限
+vCenter で vSAN Express Storage Architecture （ESA） を作成および管理するには、次の vSphere コンテンツライブラリ権限が必要です：
 
 
-
-=== ESA の VMware vSphere 権限
-
-以下は、vCenter で vSAN Express Storage Architecture (ESA) を作成および管理するために必要な vSphere コンテンツ ライブラリの特定の権限の一覧です。
+NOTE: コンテンツライブラリの権限にアクセスするには、管理者が vCenter Server のグローバル権限へのアクセスを許可する必要があります。
 
 * ライブラリアイテムを追加
 * ローカルライブラリを作成する

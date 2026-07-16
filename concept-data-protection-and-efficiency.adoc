@@ -18,12 +18,14 @@ ONTAP Selectは、 ONTAPストレージソフトウェアを基盤とし、高�
 
 
 
+[[snapshot-data-protection]]
 == スナップショットデータ保護
 
 ONTAP Selectには、スナップショットやSnapMirrorソフトウェアなどのデータ保護機能が搭載されています。オンプレミス、リモートサイト、クラウドなど、あらゆる場所にあるONTAPストレージにデータを迅速に複製できます。データを迅速にリカバリする必要がある場合は、 SnapRestoreソフトウェアがローカルスナップショットを使用して、ファイル容量やファイル数に関係なく、ファイルシステム全体またはデータボリューム全体を数秒でリカバリできます。
 
 
 
+[[metrocluster-software-defined-storage]]
 == MetroClusterソフトウェア定義ストレージ
 
 ONTAP Select MetroClusterソフトウェア定義ストレージ (SDS) は、強化された保護とコスト効率の高い実装を提供します。

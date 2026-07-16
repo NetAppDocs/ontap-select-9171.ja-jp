@@ -18,6 +18,7 @@ summary: KVM ハイパーバイザーの使用に関連して、考慮すべき�
 
 
 
+[[basic-requirements-and-restrictions]]
 == 基本的な要件と制限
 
 ONTAP Selectストレージ プールに外部アレイを使用する場合は、次の構成制限が適用されます。
@@ -33,6 +34,7 @@ CAUTION: 指定するストレージ容量は、外部ストレージの許容�
 
 
 
+[[best-practices]]
 == ベストプラクティス
 
 次の推奨事項に従う必要があります。

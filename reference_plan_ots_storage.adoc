@@ -21,6 +21,7 @@ NOTE: 外部ストレージのサポート情報については、link:reference
 
 
 
+[[hardware-raid-controller-requirements]]
 == ハードウェアRAIDコントローラの要件
 
 ONTAP Select を導入するハイパーバイザー ホスト上の RAID コントローラは、いくつかの要件を満たしている必要があります。
@@ -53,12 +54,14 @@ RAID コントローラの最小要件は次のとおりです。
 
 
 
+[[software-raid-requirements]]
 == ソフトウェアRAIDの要件
 
 ハイパーバイザー上にONTAP Selectクラスタを導入する場合、ローカルのハードウェアRAIDコントローラの代わりに、 ONTAP Selectが提供するソフトウェアRAID機能を利用できます。ソフトウェアRAIDを使用してクラスタを導入する前に、いくつかの要件と制限事項に注意する必要があります。
 
 
 
+[[general-requirements]]
 === 一般要件
 
 ソフトウェア RAID 展開環境は、次のコア要件を満たしている必要があります。
@@ -75,6 +78,7 @@ NOTE: ハードウェアRAIDコントローラが存在する場合は、link:co
 
 
 
+[[esxi-specific-requirements]]
 === ESXi固有の要件
 
 * VMware ESXi 7.0 GA (ビルド 15843807) 以降
@@ -84,6 +88,7 @@ NOTE: ハードウェアRAIDコントローラが存在する場合は、link:co
 
 
 
+[[kvm-specific-requirements]]
 === KVM固有の要件
 
 には特定の構成要件もあります。参照link:https://docs.netapp.com/us-en/ontap-select/kvm-host-configuration-and-preparation-checklist.html#prepare-linux-server["Linuxサーバーの準備"]詳細については、手順を参照してください。
@@ -120,6 +125,7 @@ KVMに対するメディアの期待:: 使用する SSD フラッシュ スト�
 
 
 
+[[ontap-select-node-configuration]]
 === ONTAP Selectノード構成
 
 システム ディスクをルート アグリゲートおよびデータ アグリゲートから分離するには、各ONTAP Selectノードとハイパーバイザ ホストを次のように設定する必要があります。
@@ -130,6 +136,7 @@ KVMに対するメディアの期待:: 使用する SSD フラッシュ スト�
 
 
 
+[[storage-capacity-restrictions]]
 == ストレージ容量の制限
 
 ONTAP Select の導入計画の一環として、ストレージの割り当てと使用に関する制限に注意する必要があります。
@@ -141,12 +148,14 @@ TIP: ONTAP Select、ストレージの割り当てと使用に関するいくつ
 
 
 
+[[calculate-raw-storage-capacity]]
 === 生のストレージ容量を計算する
 
 ONTAP Selectのストレージ容量は、ONTAP Select仮想マシンに接続された仮想データディスクとルートディスクの許容サイズの合計に相当します。容量を割り当てる際には、この点を考慮する必要があります。
 
 
 
+[[minimum-storage-capacity-for-a-single-node-cluster]]
 === 単一ノードクラスタの最小ストレージ容量
 
 単一ノード クラスター内のノードに割り当てられるストレージ プールの最小サイズは次のとおりです。
@@ -159,6 +168,7 @@ ONTAP Selectのストレージ容量は、ONTAP Select仮想マシンに接続�
 
 
 
+[[minimum-storage-capacity-for-a-multi-node-cluster]]
 === マルチノードクラスタの最小ストレージ容量
 
 マルチノード クラスター内の各ノードに割り当てられるストレージ プールの最小サイズは次のとおりです。
@@ -180,6 +190,7 @@ HAペアのストレージ容量を見積もる際には、すべてのアグリ
 ====
 
 
+[[storage-capacity-and-multiple-storage-pools]]
 === ストレージ容量と複数のストレージプール
 
 ローカル直接接続ストレージ、VMware vSAN、または外部ストレージアレイを使用する場合、各ONTAP Selectノードは最大400TBのストレージを使用するように設定できます。ただし、直接接続ストレージまたは外部ストレージアレイを使用する場合、1つのストレージプールの最大サイズは64TBです。したがって、これらの状況で64TBを超えるストレージを使用する予定の場合は、次のように複数のストレージプールを割り当てる必要があります。
@@ -193,12 +204,14 @@ NOTE: 各ストレージプールには未使用の2%バッファが確保され
 
 
 
+[[storage-capacity-and-vmware-vsan]]
 === ストレージ容量と VMware vSAN
 
 VMware vSANを使用する場合、データストアは64TBを超える容量を持つことができます。ただし、 ONTAP Selectクラスタの作成時に最初に割り当てることができるのは最大64TBです。クラスタの作成後は、既存のvSANデータストアから追加のストレージを割り当てることができます。ONTAPONTAP Selectで使用できるvSANデータストアの容量は、VMストレージポリシーの設定に基づきます。
 
 
 
+[[best-practices]]
 === ベストプラクティス
 
 ハイパーバイザー コア ハードウェアに関しては、次の推奨事項を考慮する必要があります。
@@ -208,6 +221,7 @@ VMware vSANを使用する場合、データストアは64TBを超える容量�
 
 
 
+[[additional-disk-drive-requirements-based-on-the-platform-license]]
 == プラットフォームライセンスに基づく追加のディスクドライブ要件
 
 選択するドライブは、プラットフォーム ライセンスの提供に基づいて制限されます。
@@ -235,6 +249,7 @@ NOTE: ローカル DAS ドライブを使用したソフトウェア RAID は、
 
 
 
+[[nvme-drives-with-software-raid]]
 == ソフトウェアRAID搭載NVMeドライブ
 
 NVMe SSDドライブを使用するようにソフトウェアRAIDを構成できます。環境は以下の要件を満たしている必要があります。

@@ -18,6 +18,7 @@ summary: サンプルのPythonスクリプトを使用すると、様々なタ�
 
 
 
+[[common-design-characteristics]]
 == 共通の設計特性
 
 スクリプトは、次の共通の特性を考慮して設計されています。
@@ -30,6 +31,7 @@ summary: サンプルのPythonスクリプトを使用すると、様々なタ�
 
 
 
+[[create-a-cluster]]
 == クラスタを作成します。
 
 ONTAP Selectクラスタは、cluster.pyスクリプトを使用して作成できます。CLIパラメータとJSON入力ファイルの内容に基づいて、以下のようにスクリプトを環境に合わせて変更できます。
@@ -49,6 +51,7 @@ ONTAP Selectクラスタは、cluster.pyスクリプトを使用して作成で�
 
 
 
+[[add-a-node-license]]
 == ノードライセンスを追加する
 
 本番環境のクラスターをデプロイする場合は、スクリプト_add_license.py_を使用して各ノードにライセンスを追加する必要があります。ライセンスはクラスターのデプロイ前でもデプロイ後でも追加できます。
@@ -64,6 +67,7 @@ ONTAP Selectクラスタは、cluster.pyスクリプトを使用して作成で�
 
 
 
+[[delete-a-cluster]]
 == クラスターを削除する
 
 スクリプト _delete_cluster.py_ を使用して、既存のONTAP Selectクラスタを削除できます。
